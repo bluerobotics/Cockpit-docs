@@ -1,6 +1,6 @@
 # The URL the site will be built for
-base_url = "https://blueos.cloud/cockpit/docs/latest"
-title = "Cockpit latest"
+base_url = "https://blueos.cloud/cockpit/docs/1.x"
+title = "Cockpit 1.0"
 
 # The site theme to use.
 theme = "adidoks"
