@@ -28,5 +28,5 @@ jobs:
 
       - name: Upload official docs
         run: |
-          aws s3 cp --recursive public s3://br-www-docs/cockpit/${{ github.ref_name }}
+          aws s3 cp --recursive public s3://br-www-docs/cockpit/docs/${{ github.ref_name }}
 
