@@ -1,0 +1,55 @@
+name: Deploy PR Preview
+
+on:
+  workflow_run:
+    workflows: ["Build PR Preview"]
+    types:
+      - completed
+
+jobs:
+  upload:
+    runs-on: ubuntu-latest
+    if: >
+      github.event.workflow_run.event == 'pull_request' &&
+      github.event.workflow_run.conclusion == 'success'
+    steps:
+      - name: Download artifact
+        uses: actions/github-script@v7
+        with:
+          script: |
+            var artifacts = await github.rest.actions.listWorkflowRunArtifacts({
+               owner: context.repo.owner,
+               repo: context.repo.repo,
+               run_id: ${{github.event.workflow_run.id }},
+            });
+            var matchArtifact = artifacts.data.artifacts.filter((artifact) => {
+              return artifact.name == "pr-preview"
+            })[0];
+            var download = await github.rest.actions.downloadArtifact({
+               owner: context.repo.owner,
+               repo: context.repo.repo,
+               artifact_id: matchArtifact.id,
+               archive_format: 'zip',
+            });
+            var fs = require('fs');
+            fs.writeFileSync('${{github.workspace}}/pr.zip', Buffer.from(download.data));
+      - run: unzip pr.zip
+
+      - name: Retrieve PR Number
+        run: |
+          echo "PR=$(cat pr/NR)" >> $GITHUB_ENV
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
+
+      - name: Upload to AWS
+        run: |
+          # Delete the files from the previous iteration of this PR (if they exist)
+          aws s3 rm --recursive s3://br-www-docs/preview/cockpit/${{ env.PR }}
+          # Upload the new ones
+          aws s3 cp --recursive public s3://br-www-docs/preview/cockpit/${{ env.PR }}
+          echo "Preview at http://br-www-docs.s3-website-us-east-1.amazonaws.com/preview/cockpit/${{ env.PR }}"
