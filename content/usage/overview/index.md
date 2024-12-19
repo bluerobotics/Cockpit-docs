@@ -21,12 +21,30 @@ top = false
 
 The existing market for control station software is missing an option that's readily available, easy to use, versatile, easy to customise and develop for, and cross-platform. In response to this need, and fueled by years of inspirations for what a truly great control station could be, Cockpit is Blue Robotics' next-generation control interface, for thrusting your vehicle control experience into the future.
 
-## Availability
+## Availability and Limitations
 
-Cockpit is currently publicly available [as a BlueOS Extension](https://docs.bluerobotics.com/BlueOS-Extensions-Repository#:~:text=Cockpit,-Maintainer) (requires BlueOS >= 1.1). It is still in an initial development phase, and will not be actively supported until it is officially released.
+[Cockpit is open source](https://github.com/bluerobotics/cockpit), and is free to install and use.
 
-The source code is available [on GitHub](https://github.com/bluerobotics/cockpit),
-under [two possible licenses](https://github.com/bluerobotics/cockpit/tree/master/LICENSE.md).
+It is currently available as: 
+1. [a BlueOS Extension](https://docs.bluerobotics.com/BlueOS-Extensions-Repository#:~:text=Cockpit,-Maintainer) (requires BlueOS >= 1.1)
+   - with an interface that runs in a web browser, on almost any web-capable device (including mobiles and VR headsets)
+1. [a standalone application](../installation#self-contained-application)
+   - built for Windows, macOS, and Linux (including SteamOS)
+      - we are looking into also making it available on iOS and android
+   - includes some additional features, and may run more reliably
+   - if connected to a non-BlueOS vehicle, requires external server software to communicate in the formats it expects
+      - e.g. [MAVLink Server](https://github.com/bluerobotics/mavlink-server)
+        and [MAVLink Camera Manager](https://github.com/mavlink/mavlink-camera-manager)
+
+### Try it!
+
+1. [Run a browser-served version](https://docs.bluerobotics.com/cockpit), to play with the latest state of the interface
+   - Opens instantly
+   - Has no vehicle connected, so widgets don't display meaningful data
+1. [Run a full vehicle simulation with BlueOS](https://blueos.cloud/bluesim), to test the control process and effectiveness of different views
+   - Can take several minutes to start and connect to the virtual machine
+   - Can get behind on updates, so may not be running the latest Cockpit and/or BlueOS version
+1. [Install your own copy](../installation)
 
 ## Primary Feature List
 
