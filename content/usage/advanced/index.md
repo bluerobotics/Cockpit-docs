@@ -18,16 +18,33 @@ top = false
 
 {{ easy_image(src="interface-overview", width=650, center=true) }}
 
+Cockpit's main interface consists of three main components:
+1. A sidebar menu icon
+   - Normally a sidebar tab arrow on the left
+   - Can be configured as a burger menu in the top left corner
+1. A central region, for regular widgets
+1. Mini-widget containers, including the header and footer bars
+
+### Sidebar Menu
+
+Clicking on the sidebar tab (on the left of the screen) provides access to various configuration options,
+along with information about the application:
+
+{{ easy_image(src="sidebar-menu", width=100) }}
+
+#### Settings
+
+Cockpit's settings control how the application behaves and communicates, including, what data sources it's
+connected to, and how and where it processes and outputs commands and data (including recordings and logs):
+
+{{ easy_image(src="settings-menu", width=100) }}
+
+The available settings interfaces and options are [covered in a dedicated section](#behaviour-configuration)
+below.
+
 ### Header Bar
 
 The header bar consists of the following main elements:
-
-#### Burger Menu
-
-Clicking on the burger menu (in the top left of the screen) provides access to various 
-[configuration](#configuration) options:
-
-{{ easy_image(src="burger-menu", width=300, center=true) }}
 
 #### Mission Name
 
@@ -100,7 +117,7 @@ you haven't seen before.
 
 #### Profile Configuration
 
-1. Open edit mode (via the [burger menu](#burger-menu)
+1. Open edit mode (via the [sidebar menu](#sidebar-menu))
 1. Select a custom/user profile to edit, and/or create, import, or remove profiles as desired
     - Profiles can be renamed by clicking on the settings cog icon, or duplicated via the copy icon
     - Additional profiles can be imported from the display device or the connected vehicle
@@ -130,7 +147,7 @@ Multiple simultaneous tabs from the same browser instance will be supported in f
 
 #### Configuration
 
-- Open edit mode via the [burger menu](#burger-menu)
+- Open edit mode via the [sidebar menu](#sidebar-menu)
 - Select a view to edit, and/or create or remove views as desired
     - Views can be imported from an external file, or exported to a file for sharing
     - Clicking on the cog settings icon allows renaming a view, and determining whether the footer bar is
@@ -337,9 +354,9 @@ The current options include
 - [View](#views) selector
 - Takeoff/land button
 
-## Configuration
+## Behaviour Configuration
 
-Cockpit's behaviour can be configured via the [burger menu](#burger-menu), with the following tabs:
+Cockpit's behaviour can be configured via the [sidebar menu](#sidebar-menu), with the following tabs:
 
 ### General
 
