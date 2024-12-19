@@ -5,8 +5,10 @@ This file refers to the process of contributing to this documentation repository
 
 ## Repository Structure
 1. Each branch covers some form of release of the software
-    - The `latest` and `beta` branches cover the unstable features in development / early testing 
-    - The `X.Y` versioned branches track major and minor stable releases
+    - The `latest` branch covers the unstable features in development / early testing
+    - The `stable` and `X.Y` versioned branches track major and minor stable releases
+      - `stable` documents the current latest stable version
+      - It only branches into the corresponding numbered branch at the time of the next version number increment
     - Patch release (`X.Y.Z`) changes are documented (as relevant) in the corresponding minor release branch (`X.Y`)
 1. Documentation content is in the `content` directory
 1. The theme is included in the `themes` directory, as a git submodule
@@ -18,9 +20,7 @@ This file refers to the process of contributing to this documentation repository
     - It is recommended that software pull requests that change an interface or part of the documented code structure be marked with a `docs-needed` [label](https://docs.github.com/en/issues/using-labels-and-milestones-to-track-work/managing-labels), and include a comment about which aspects need to be documented prior to the feature being merged (while the details are still front of mind for the developer)
     - If a software pull request is labelled as `docs-needed`, once a corresponding documentation pull request is merged the feature PR can be re-labelled with a completion status (e.g. `docs-minimal` or `docs-complete`)
     - Beta releases may require that no merged features are labelled with `docs-needed`, and stable releases may require that no included features are labelled with `docs-needed` or `docs-minimal`
-1. When a new beta release of the software is made, the relevant changes in the `latest` branch get merged or cherry-picked over to the `beta` branch
-    - This is handled by the documentation maintainers
-1. When a new major or minor stable release of the software is made, the `beta` branch gets duplicated into a new branch tracking that version, which then gets reconfigured with a fixed release number
+1. When a new major or minor stable release of the software is made, the `stable` branch gets duplicated into a new branch tracking that version, which then gets reconfigured with a fixed release number, and the now-stable features in the `latest` branch get cherry-picked to the `stable` branch
     - This is handled by the documentation maintainers
 
 # Making a Contribution
@@ -65,7 +65,7 @@ Specific processes are covered below, but the general process is:
 ### Improving/Adding Documentation for Released Features
 > 💡 Relevant features can typically be found by looking through the public documentation for features with minimal information, and/or [searching this repository](https://github.com/bluerobotics/Cockpit-docs/issues?q=is%3Aissue+is%3Aopen+label%3Acontent) for issues with the `content` label, or [searching the software repository](https://github.com/bluerobotics/Cockpit/issues?q=is%3Apull+is%3Aclosed+label%3Adocs-minimal) for pull requests with the `docs-minimal` label.
 
-Documentation for existing features should generally first be [added to the `latest` branch](#documenting-a-newupcoming-feature), before optionally being backported to the `beta` and/or any relevant version branches, usually via [`git cherry-pick`](https://git-scm.com/docs/git-cherry-pick).
+Documentation for existing features should generally first be [added to the `latest` branch](#documenting-a-newupcoming-feature), before optionally being backported to the `stable` and/or any relevant version branches, usually via [`git cherry-pick`](https://git-scm.com/docs/git-cherry-pick).
 
 If your changes were requested in an Issue, make sure to include "Resolves #{ISSUE-NUMBER}" in the description of your pull request, to link to and automatically close the Issue when the pull request is merged.
 
