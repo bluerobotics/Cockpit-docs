@@ -2,22 +2,23 @@
 
 This repository documents the Blue Robotics' [Cockpit](https://blueos.cloud/cockpit/docs/usage/overview) software.
 
-The documentation is generated using the [Zola](https://www.getzola.org/) static site generator.
+The documentation is generated using the [Zola](https://www.getzola.org/) static site generator, together with [BlueTheme](https://github.com/bluerobotics/bluetheme).
 
 ## Structure
 
 - Each branch covers a minor release (`X.y`) of the software, including any patches (`X.Y.z`) of that release
-    - The `latest` branch covers the development state in the BlueOS `master` branch, but is not expected to be consistently up to date
-    - The `beta` branch covers the latest beta release, and is intended to at least minimally describe all included features
+    - The `latest` branch covers the development state in the Cockpit `master` branch, but is not expected to be consistently up to date
+        - It is intended to at least minimally describe all included features in the latest available beta release
+    - The `stable` branch covers the latest stable version, and is intended to sufficiently describe all included features
 - For ease of contribution, and to keep the search index independent between versions, each branch is built independently
 - Documentation content is in the `content` directory
 - The theme is provided as a submodule in the `themes` directory
 
 ## Contributing
 
-New features should first be documented in `latest`, and subsequently branched into `beta` and a stable version toegther with the software release cycle.
+New features should first be documented in `latest`, then cherry-picked into `stable` as part of the software release cycle.
 
-Improved documentation for existing features should at least be added to `latest`, and ideally also cherry-picked into the existing `beta` and stable-versioned branches as relevant.
+Improved documentation for existing features should at least be added to `latest`, and ideally also cherry-picked into the existing `stable` and numbered stable version branches as relevant.
 
 Detailed contribution information can be found in [CONTRIBUTING.md](CONTRIBUTING.md)
 
