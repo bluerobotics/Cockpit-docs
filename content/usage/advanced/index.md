@@ -269,32 +269,32 @@ vehicle's current position, GPS origin, or home location.
 
 ##### Video Player
 
-The video player widget displays an available WebRTC video stream. BlueOS uses the 
+The video player widget displays an available WebRTC video stream, as set up through the [Video Configuration
+menu](#video-streams-configuration). BlueOS uses the 
 [MAVLink Camera Manager](https://github.com/mavlink/mavlink-camera-manager) to automatically create a WebRTC 
 stream for applicable video streams.
 {{ easy_image(src="video-widget", width=400, center=true) }}
 
 Multiple video widgets can be added to display different video streams.
 
-Configuration allows selecting which video stream to display, flipping the stream image, and choosing how
-the frames should fit within the widget:
+Configuration allows selecting which video stream to display, flipping and rotating the stream image, and
+choosing how the frames should fit within the widget:
 - **cover**: maintains the video aspect ratio, but expands the frames to fully cover the widget, and crops
 off the sides or top+bottom if they extend beyond the widget boundaries
 - **fill**: stretches the frames so that all sides are against the corresponding widget boundary
 - **contain**: maintains the video aspect ratio, but shrinks the frames to fully fit inside the widget,
 adding transparent padding at the sides / above+below as necessary
-{{ easy_image(src="video-config", width=600, center=true) }}
+{{ easy_image(src="video-widget-config", width=400, center=true) }}
 
-It is also possible to select the video source IP, which is recommended especially if there are multiple
-available connection routes (e.g. if there is a wired route through a tether, as well as a wireless connection,
-you should select the tether IP and remove the wireless one to avoid video stuttering from transmission over wifi).
-A warning is provided when multiple routes are available:
+If your video stream is having some issues, the available stream performance statistics may help to determine
+the cause of the problem:
 
-{{ easy_image(src="video-multiple-ip-warning", width=400, center=true) }}
+{{ easy_image(src="video-widget-stats", width=170, center=true) }}
 
-Video recording is possible using a [mini widget](#mini-widgets), and directly records the incoming stream
-(not the scaled and cropped display of the widget). Cockpit can be configured to 
-[log some telemetry values](#logs), and record them as a subtitle file for convenient video playback:
+Video recording (to Cockpit's [Video Library](#video-library)) is possible using a [mini widget](#mini-widgets),
+and directly records the incoming stream (not the scaled and cropped/flipped/rotated display of the widget).
+Cockpit can be configured to [log some telemetry values](#telemetry-logs-subtitle-files), and record them as a
+subtitle file for convenient video playback:
 
 {{ easy_image(src="video-subtitles", width=450, center=true) }}
 
@@ -346,14 +346,12 @@ The current options include
 - Video recorder
     - allows recording one of the available WebRTC streams, or the full Cockpit tab
     - recording occurs in the browser of the display device (not onboard the vehicle)
-        - this is currently stored in memory and downloaded to the device when finished, which may limit
-        maximum time for individual recordings
+        - downloading recordings currently temporarily stores them in memory, which may limit the
+          maximum time for individual recordings
     - recordings are saved using the [mission name](#mission-name) and the starting timestamp
-    - a warning is displayed if Cockpit is closed while a video is recording, and a recovery popup
-    appears when Cockpit is next opened in that browser / on that device
+    - completed recordings are accessible through the [Video Library](#video-library)
 {{ easy_image(src="video-recording-config", width=250, center=true) }}
-{{ easy_image(src="video-recording-termination-warning", width=400, center=true) }}
-{{ easy_image(src="video-recording-recovery", width=400, center=true) }}
+{{ easy_image(src="video-recording-termination-warning", width=550, center=true) }}
 - Joystick connection status indicator
 - Flight mode selector
 - GPS status indicator
@@ -366,12 +364,16 @@ Cockpit's behaviour can be configured via the [sidebar menu](#sidebar-menu), wit
 
 ### General
 
-Connection configuration allows specifying custom endpoint addresses for Cockpit to communicate with.
-When Cockpit is hosted by a vehicle running BlueOS these are usually correct by default, but if using
-it standalone or connecting to some external services it may be necessary to specify different
-addresses, and refresh the page to establish the desired connection.
+The general settings cover top level configuration of Cockpit, to set up who is using it and how it should
+connect to a vehicle:
 
-{{ easy_image(src="../getting-started/general-config", width=600, center=true) }}
+{{ easy_image(src="general-config", width=400) }}
+
+- Create and switch the active user
+- Specify the primary network address to connect to the vehicle
+- Optionally override the autopilot / MAVLink router telemetry connection address
+- Optionally override the WebRTC media connection address, for video streaming
+- Optionally customise the WebRTC connection configuration values
 
 ### Joysticks
 
@@ -467,6 +469,32 @@ relevant "Joystick mapping", from the button IDs presented by the physical joyst
 corresponding buttons in the SVG file. This mapping can then be exported to the computer and/or the vehicle,
 and imported to new Cockpit instances/devices later.
 
+### Video Streams Configuration
+
+Available video streams and connection settings can be viewed and configured:
+
+{{ easy_image(src="video-streams-config", width=400) }}
+
+- Set a custom name for each recognised video stream
+   - Edit by double clicking the existing name, or clicking the pencil icon
+- Limit which IP address(es) are allowed to be used for video streaming
+   - This is particularly ecommended if there are multiple available connection routes (e.g. if there is a
+     wired route through a tether, as well as a wireless connection, you should select the tether IP and
+     remove the wireless one to avoid video stuttering from transmission over wifi).
+- Limit which network protocol(s) are allowed for video streaming
+   - UDP can be lower latency but may drop frames, while TCP enforces frame ordering at the cost of some
+     increased latency and jitter
+- Customise the stream pipeline's jitter buffer duration
+   - Higher values increase stream latency, but can compensate for network jitter and display the stream
+     with a smoother / more consistent duration between frames
+- Configure [Video Library](#video-library) behaviours
+   - Recorded video chunks can be combined automatically at the end of the recording session (which may
+     take a while on low end hardware), or can be left for the user to trigger manually when they want to
+     download a specific video
+   - Videos and subtitle files can be zipped together to download them as a single compressed archive, but
+     the zipping process can take a while if the files are large, which may be inconvenient
+   - Access the Video Library from here, or from any video recorder mini-widget
+
 ### Telemetry
 
 Telemetry values received by Cockpit can be displayed live, but also [recorded into video subtitle files](
@@ -478,7 +506,14 @@ the grid. It is also possible to style the subtitle file using the Overlay Optio
 
 {{ easy_image(src="telemetry-config", width=600, center=true) }}
 
-## Logs
+## Status and Recordings
+
+### Video Library
+- Allows processing and previewing video recordings, and downloading them with corresponding subtitle files
+- It is possible to select and act on multiple recordings at once, including downloading or deleting as a batch
+   - Selecting multiple files requires either switching to the relevant mode, or doing a long press on the
+     first file in the batch, or selecting a set of individual files using `CTRL+Click` or `CMD+Click` (for macOS).
+{{ easy_image(src="video-recording-library", width=500, center=true) }}
 
 ### Telemetry Logs / Subtitle Files
 
