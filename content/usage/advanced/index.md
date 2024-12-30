@@ -467,19 +467,43 @@ relevant "Joystick mapping", from the button IDs presented by the physical joyst
 corresponding buttons in the SVG file. This mapping can then be exported to the computer and/or the vehicle,
 and imported to new Cockpit instances/devices later.
 
+### Telemetry
+
+Telemetry values received by Cockpit can be displayed live, but also [recorded into video subtitle files](
+#telemetry-logs-subtitle-files).
+
+Available variables can be dragged and dropped into the relevant screen region to specify where they show
+up in the generated subtitle file, or removed from recording by pressing the X beside the variable name in
+the grid. It is also possible to style the subtitle file using the Overlay Options expandable section.
+
+{{ easy_image(src="telemetry-config", width=600, center=true) }}
+
 ## Logs
 
-### Telemetry Logs and Subtitle Files
+### Telemetry Logs / Subtitle Files
 
 Cockpit can optionally record some of its received telemetry values, which can then be turned into subtitle
 files when recording videos. 
 
-Currently the possible variables for logging are pre-defined, and the output format is determined automatically.
-If left unconfigured, the variables that are recorded by default are those from active widgets in the selected 
-[Profile](#profiles). It is possible to override which variables are logged via the configuration page, but
-custom widgets like the `VeryGenericIndicator` cannot currently be logged.
+{% note() %}
+For lower level and more detailed communication/telemetry logs, consider checking the logs and debugging
+interfaces of your MAVLink router. Relevant information can be found in the
+[MAVLink Endpoints documentation](https://blueos.cloud/docs/latest/usage/advanced/#mavlink-endpoints) for
+BlueOS users.
+{% end %}
 
-{{ easy_image(src="logging-config", width=600, center=true) }}
+Available variables for logging are determined using the [mini-widgets](#mini-widgets) included in a
+[View](#views) in the active [Profile](#profiles), including Very Generic Indicator widgets, which can display
+almost anything Cockpit receives from the vehicle. It is also possible to add custom text values, to include
+extra metadata like a company name or vehicle operator.
+
+{% note() %}
+Using a hidden View allows configuring mini-widgets for any variables you want to record but do not want to
+display during operation.
+{% end %}
+
+It is possible to configure which variables are logged and where they appear in the generated subtitle files
+using the [telemetry settings](#telemetry).
 
 Logging is at a fixed rate of 1Hz. When a video recording completes, a corresponding subtitle file is generated
 by slicing the raw log from the start to end timestamps of the video.
