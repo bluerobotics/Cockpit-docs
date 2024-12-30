@@ -258,8 +258,14 @@ There are buttons to
 {{ easy_image(src="map-widget", width=350, center=true) }}
 {{ easy_image(src="map-config", width=350, center=true) }}
 
-In future it will be possible to set the current vehicle position, and click to guide the vehicle to new
-positions.
+For vehicles with a supporting autopilot firmware and valid position estimate it is also possible to guide
+the vehicle to a new position via GoTo commands (which can be sent by clicking a target location on the map,
+and clicking the GoTo button).
+
+{{ easy_image(src="goto", width=100, center=true) }}
+
+It is [not currently possible](https://github.com/bluerobotics/cockpit/issues/1513) to manually specify the
+vehicle's current position, GPS origin, or home location.
 
 ##### Video Player
 
