@@ -469,6 +469,8 @@ and imported to new Cockpit instances/devices later.
 
 ## Logs
 
+### Telemetry Logs and Subtitle Files
+
 Cockpit can optionally record some of its received telemetry values, which can then be turned into subtitle
 files when recording videos. 
 
@@ -486,6 +488,18 @@ by slicing the raw log from the start to end timestamps of the video.
 Recorded video and subtitles are in separate files, so the browser will typically ask for permission to "download
 multiple files", which must be accepted to get access to the subtitles corresponding to a video recording.
 {% end %}
+
+### System/Application Logs
+
+For debugging purposes, Cockpit keeps track of its internal state changes and errors in JSON-based log files,
+which can be downloaded or deleted from the dev page:
+{{ easy_image(src="system-logs", width=600, center=true) }}
+
+The top right button allows deleting all the old log files as a group.
+
+Downloaded logs can be opened in a standard text editor, and include a sequence of events recorded with a
+[UNIX-style epoch timestamp](https://www.unixtimestamp.com/), together with the event severity level
+(e.g. debug, log, error, etc), and some kind of related message.
 
 ### Alerts
 
