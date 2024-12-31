@@ -76,6 +76,15 @@ The current time and date is displayed in the top right corner.
 
 ## Edit Mode
 
+Cockpit is built around a configurable widget system, so you can design and modify custom interfaces for
+for different applications.
+
+{{ easy_image(src="edit-mode", width=650, center=true) }}
+
+### Organisation
+
+{{ easy_image(src="users-profiles-views", width=500, center=true) }}
+
 Cockpit's interface consists of a configurable widget system, with
 1. [Profiles](#profiles)
     - for supporting different operators and/or vehicle types
@@ -83,7 +92,7 @@ Cockpit's interface consists of a configurable widget system, with
     and switched between in edit mode
 1. [Views](#views) (within each profile)
     - for handling different operation modes / targets within a mission
-    - can be added/removed/duplicated, saved and loaded to/from the display device, and
+    - can be added/hidden/removed/duplicated, saved and loaded to/from the display device, and
     dynamically switched between during operation
 1. [Widgets](#widgets) (within each view)
     - for advanced information display and vehicle control
@@ -91,8 +100,6 @@ Cockpit's interface consists of a configurable widget system, with
 1. [Mini-widgets](#mini-widgets) (within mini-widget bar widgets)
     - for basic information display and vehicle/interface control
     - can be added/removed, reordered within widget bars, and moved between them
-
-{{ easy_image(src="edit-mode", width=650, center=true) }}
 
 ### Profiles
 
@@ -134,38 +141,43 @@ A "view" is like a page that [widgets](#widgets) can be displayed in. It is poss
 separate views and switch between them during operation, which is useful if you have different interface
 preferences for when you're performing different operations.
 
+{{ easy_image(src="view-selector", width=120, center=true) }}
+
 As an example, you may have one view tailored to general navigation, and another that's designed around
 inspections. The first view could then be used while getting the vehicle to the inspection site, and then
 the second view can be switched to once it's time to actually perform the inspection.
 
-It is possible for different devices or browser instances to access Cockpit at the same time (e.g. using
-separate browser profiles, or one display in incognito mode, but currently **not** multiple tabs of the same
-browser instance), with their views configured independently. To use the same component layouts across
-instances you can export the desired view(s) from one and import into the other(s).
+It is possible for different devices or browser instances to connect Cockpit to a vehicle (or load Cockpit
+from a vehicle) at the same time (e.g. using separate browser profiles, or one display in incognito mode,
+but currently **not** multiple tabs of the same browser instance), with their views configured independently.
+To use the same component layouts across instances you can sync them through the vehicle, or manually
+export the desired view(s) from one and import them into the other(s).
 
-Multiple simultaneous tabs from the same browser instance will be supported in future.
+#### Views Configuration
 
-#### Configuration
-
-- Open edit mode via the [sidebar menu](#sidebar-menu)
-- Select a view to edit, and/or create or remove views as desired
+- Open edit mode via `Settings / Edit Interface` in the [sidebar menu](#sidebar-menu)
+- Expand or hide the views manager via the arrow in the top left corner
+{{ easy_image(src="view-manager", width=300, center=true) }}
+- Select a view to edit, and/or create, hide/show, or remove views as desired
     - Views can be imported from an external file, or exported to a file for sharing
     - Clicking on the cog settings icon allows renaming a view, and determining whether the footer bar is
       shown or hidden/docked when Cockpit boots
         - It is always possible to toggle the current footer bar visibility using
           [Cockpit Actions](#cockpit-actions) (e.g. via a joystick button)
-{{ easy_image(src="view-config", width=250, center=true) }}
-- The "Current widgets" list allows
-    1. dragging the widgets in the current view to reorder which widget is on top
+{{ easy_image(src="view-config", width=400, center=true) }}
+- The "Widgets in View" list allows
+    - hovering over a widget name to highlight its display in the interface
+    - dragging the widgets in the main view area to reorder which widget is on top
         - This helps for use-cases like overlaying a HUD element on a video display
-    1. removing an existing widget from the current view
-    1. resizing a widget to fill the entire view
+    - removing an existing widget from the current view
+    - resizing a widget to fill the entire view
+{{ easy_image(src="view-widgets", width=300, center=true) }}
 - New widgets can be added via the bottom section
     - Clicking on a regular widget adds it to the view, after which it can be positioned and resized as desired
     - Mini widgets have fixed sizes, but can be dragged and dropped into the desired location in the header/footer
       bars or in a custom [mini widget bar](#mini-widget-bar)
     - The selector in the bottom left can be used to choose between editing regular or mini widgets
-- Some widgets can be configured, by clicking the cog settings icon in the "Current widgets" list
+- Some widgets can be configured, by clicking the cog settings icon in the "Widgets in View" list
     - [There are currently cog icons for all widgets](https://github.com/bluerobotics/cockpit/issues/541),
       so if you click a cog icon and nothing happens it means that widget is not configurable
 
