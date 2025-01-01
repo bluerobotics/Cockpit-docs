@@ -75,6 +75,12 @@ It is currently available as:
 
 ## Community
 
+### Discussions and Support
+
+- [Discussion Forum](https://discuss.bluerobotics.com/c/bluerobotics-software/cockpit/91)
+- [Issues and Feature Requests](https://github.com/bluerobotics/cockpit/issues)
+- [Chat (Discord)](https://discord.gg/mFgvxhCDrv)
+
 ### Usage Introduction Video
 `Phil Parisi (October 2024) - Supported by Blue Robotics`
 <iframe width="560" height="315" src="https://www.youtube.com/embed/1bpTAEN3K3s" title="YouTube video player" frameborder="0" allow="encrypted-media;" allowfullscreen></iframe>
