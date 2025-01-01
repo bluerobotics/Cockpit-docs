@@ -38,13 +38,14 @@ It is currently available as:
 
 ### Try it!
 
-1. [Run a browser-served version](https://docs.bluerobotics.com/cockpit), to play with the latest state of the interface
+0. ⏯️ [Watch the usage introduction video](#usage-introduction-video)
+1. 🌐 [Run a browser-served version](https://docs.bluerobotics.com/cockpit), to play with the latest state of the interface
    - Opens instantly
    - Has no vehicle connected, so widgets don't display meaningful data
-1. [Run a full vehicle simulation with BlueOS](https://blueos.cloud/bluesim), to test the control process and effectiveness of different views
+1. 🎮 [Run a full vehicle simulation with BlueOS](https://blueos.cloud/bluesim), to test the control process and effectiveness of different views
    - Can take several minutes to start and connect to the virtual machine
    - Can get behind on updates, so may not be running the latest Cockpit and/or BlueOS version
-1. [Install your own copy](../installation)
+1. 🚀 [Install your own copy](../installation)
 
 ## Primary Feature List
 
@@ -71,3 +72,13 @@ It is currently available as:
     - Displays autopilot (MAVLink `STATUSTEXT`) and application alerts
     - Includes text to speech announcements
 - [Mission naming](../advanced/#mission-name) used on the interface and video save filenames
+
+## Community
+
+### Usage Introduction Video
+`Phil Parisi (October 2024) - Supported by Blue Robotics`
+<iframe width="560" height="315" src="https://www.youtube.com/embed/1bpTAEN3K3s" title="YouTube video player" frameborder="0" allow="encrypted-media;" allowfullscreen></iframe>
+
+### Developer Presentations
+`ArduPilot Developers Conference (October 2024)`
+<iframe width="560" height="315" src="https://www.youtube.com/embed/IbfDEuGvlmo" title="YouTube video player" frameborder="0" allow="encrypted-media;" allowfullscreen></iframe>
