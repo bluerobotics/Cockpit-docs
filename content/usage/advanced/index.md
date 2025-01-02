@@ -541,6 +541,22 @@ Cockpit includes a variety of [alerts](#alerts-1) during operation, and provides
 
 {{ easy_image(src="alert-config", width=500, center=true) }}
 
+### Development / Troubleshooting
+
+These features help with error tracking and troubleshooting, so in normal use can generally be left alone:
+
+{{ easy_image(src="dev-mode-config", width=600) }}
+
+- **Development mode** turns on a debugging overlay that displays relevant information about the visible widgets
+   - Dev info blur level determines how much the underlying interface is blurred when in dev mode
+- **BlueOS settings sync** allows synchronising Cockpit's settings to the connected vehicle (if it is running BlueOS)
+   - This helps with keeping the same settings and profiles if that vehicle is then later controlled using
+     a different device running Cockpit
+- **Usage statistics telemetry** can be automatically sent to the Cockpit development team to help identify and
+  track common errors and performance issues across global Cockpit usage
+- **System logging** creates [application logs](#system-application-logs) that can be checked or shared with
+  developers to help debug issues
+
 ## Status and Recordings
 
 ### Video Library
