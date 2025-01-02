@@ -582,6 +582,34 @@ If you want a similar feature for joystick button functions, consider assigning 
 can be triggered.
 {% end %}
 
+### Custom Actions
+
+Cockpit's Action system provides a set of functionalities that can be triggered from any of Cockpit's
+supported input sources (e.g. joystick buttons, interface elements, other Actions, etc). There are
+some predefined ones, but it is also possible to define (and export or import) custom Actions with a
+few different approaches:
+
+{{ easy_image(src="custom-actions-config", width=500) }}
+
+- **MAVLink Message Actions** are the most confined, and allow sending arbitrary
+  [MAVLink messages](https://mavlink.io/en/messages/common.html) and
+  [commands](https://mavlink.io/en/messages/common.html#mav_commands) to the vehicle and any other
+  components in your MAVLink system
+{{ easy_image(src="custom-mavlink-action", width=400) }}
+- **HTTP Request Actions** can send arbitrary HTTP requests, including custom URL parameters, headers,
+  and a JSON body
+   - These are best for basic communication with arbitrary APIs
+{{ easy_image(src="custom-http-action", width=400, center=true) }}
+- **JavaScript Actions** are a blank canvas, with all the possibilities (but also the complexities) of
+  programming your own functionalities
+{{ easy_image(src="custom-javascript-action", width=500, center=true) }}
+
+Existing custom Actions can be edited, run manually (to test them), exported, or deleted.
+
+{% note() %}
+More detailed breakdowns and examples will be coming in future.
+{% end %}
+
 ## Status and Recordings
 
 ### Video Library
