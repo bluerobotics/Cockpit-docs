@@ -455,14 +455,19 @@ is raised to notify that the configured mapping is not fully as designed.
 ##### Cockpit Actions
 
 Joystick buttons can also be configured to run more general functionalities, like modifying the interface or
-sending a single MAVLink message. The current supported Actions are:
+sending a single MAVLink message. The current default Actions are:
 
 - `go_to_next_view`
 - `go_to_previous_view`
 - `toggle_bottom_bar`
 - `toggle_full_screen`
+- `hold_to_confirm`
+- `start_recording_all_streams`
+- `stop_recording_all_streams`
 - `mavlink_arm`
 - `mavlink_disarm`
+
+It is also possible to define your own [custom Actions](#custom-actions), or import them from files.
 
 ##### Modifier Keys
 
