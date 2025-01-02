@@ -404,6 +404,15 @@ connect to a vehicle:
 - Optionally override the WebRTC media connection address, for video streaming
 - Optionally customise the WebRTC connection configuration values
 
+### Interface
+
+The interface settings cover high-level configuration options about Cockpit's appearance and data displays:
+
+{{ easy_image(src="interface-config", width=500) }}
+
+It is also possible to rearrange and modify the components and widgets displayed during operation, which
+there's a dedicated interface for managing in [Edit Mode](#edit-mode).
+
 ### Joysticks
 
 Cockpit is intended to work with arbitrary joystick types, and allows mapping joystick buttons and axes to
