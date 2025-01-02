@@ -32,6 +32,23 @@ along with information about the application:
 
 {{ easy_image(src="sidebar-menu", width=100) }}
 
+#### About
+
+The "About" window displays a brief description of Cockpit itself, along with key information about the
+version being run, and links to relevant resources and help/discussion/contribution channels:
+
+{{ easy_image(src="about", width=500) }}
+
+#### Fullscreen Display
+
+Cockpit can be run within the window it opens in, or as a full-screen application.
+
+Full-screening a browser window usually includes the tabs and search bar at the top, so there's a button
+in the sidebar menu to make Cockpit itself full-screened instead, and to easily exit from full-screen to
+resume access to the underlying browser / operating system interface.
+
+{{ easy_image(src="exit-fullscreen", width=100) }}
+
 #### Settings
 
 Cockpit's settings control how the application behaves and communicates, including, what data sources it's
