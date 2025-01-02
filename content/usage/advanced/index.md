@@ -73,16 +73,6 @@ to restore the previous name (e.g. if you change you mind or make a mistake).
 
 {{ easy_image(src="mission-name-config", width=450, center=true) }}
 
-#### Alerts
-
-Alerts received from the autopilot ([`STATUSTEXT`](https://mavlink.io/en/messages/common.html#STATUSTEXT)), as
-well as application notifications (like loss of connection to the vehicle) are displayed in the central alerts
-pane, which can be hovered over to access a scrollable history of alerts:
-
-{{ easy_image(src="alert-history", width=450, center=true) }}
-
-Some alerts can be read aloud on arrival using text to speech technology, which [can be configured](#alerts).
-
 #### Mini Widget Container
 
 When space is available, [mini widgets](#mini-widgets) can be placed on the right side of the alerts display.
@@ -544,6 +534,13 @@ the grid. It is also possible to style the subtitle file using the Overlay Optio
 
 {{ easy_image(src="telemetry-config", width=600, center=true) }}
 
+### Alerts
+
+Cockpit includes a variety of [alerts](#alerts-1) during operation, and provides settings for which ones
+(if any) should be read using text to speech technology:
+
+{{ easy_image(src="alert-config", width=500, center=true) }}
+
 ## Status and Recordings
 
 ### Video Library
@@ -600,10 +597,13 @@ Downloaded logs can be opened in a standard text editor, and include a sequence 
 
 ### Alerts
 
-It is possible to select the desired text-to-speech voice, as well as configure which alert severities
-are read out loud:
+Alerts received from the autopilot ([`STATUSTEXT`](https://mavlink.io/en/messages/common.html#STATUSTEXT)), as
+well as application notifications (like loss of connection to the vehicle) are displayed in the central alerts
+pane, which can be hovered over to access a scrollable history of alerts:
 
-{{ easy_image(src="alert-config", width=600, center=true) }}
+{{ easy_image(src="alert-history", width=450, center=true) }}
+
+Some alerts can be read aloud on arrival using text to speech technology, which [can be configured](#alerts).
 
 ## Mission Planning
 
