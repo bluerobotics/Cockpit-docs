@@ -557,6 +557,31 @@ These features help with error tracking and troubleshooting, so in normal use ca
 - **System logging** creates [application logs](#system-application-logs) that can be checked or shared with
   developers to help debug issues
 
+### Missions and Safety
+
+While autopilots often include built in failsafes and pre-arming checks, it can also be useful for the operator's
+interface to require explict confirmation before a safety-related or mission critical action is even sent to the
+vehicle.
+
+Depending on the interface configuration, some interfaces may make it easy to accidentally press a button or
+slider on the screen that has an undesirable outcome, so it is possible to require these actions to be have an
+extra confirmation step:
+
+{{ easy_image(src="mission-config", width=500) }}
+
+A confirmation slider is shown, which can either be dragged to completion in the interface, or confirmation can
+be provided by pressing and holding a joystick button that is configured to the `hold_to_confirm` Action:
+
+{{ easy_image(src="slide-to-confirm", width=250, center=true) }}
+
+{% note() %}
+Actions that are *triggered* by joystick button presses (instead of interface elements) do not require extra
+confirmation - it is assumed that the press of a dedicated button is enough confirmation.<br><br>
+If you want a similar feature for joystick button functions, consider assigning them to a
+[modifier-based slot](#modifier-keys), to require a modifier key to be held down before the function
+can be triggered.
+{% end %}
+
 ## Status and Recordings
 
 ### Video Library
