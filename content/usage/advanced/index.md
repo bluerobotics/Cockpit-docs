@@ -174,7 +174,8 @@ export the desired view(s) from one and import them into the other(s).
     - resizing a widget to fill the entire view
 {{ easy_image(src="view-widgets", width=300, center=true) }}
 - New widgets can be added via the bottom section
-    - Clicking on a regular widget adds it to the view, after which it can be positioned and resized as desired
+    - Dragging a regular widget card into the main display area adds it to the View, after which it can be 
+      positioned and resized as desired
     - Mini widgets have fixed sizes, but can be dragged and dropped into the desired location in the header/footer
       bars or in a custom [mini widget bar](#mini-widget-bar)
         - The header bar is shared between Views, and the bottom bar is unique to each View
