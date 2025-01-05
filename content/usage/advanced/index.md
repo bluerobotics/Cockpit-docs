@@ -14,16 +14,35 @@ toc = true
 top = false
 +++
 
+## Quick Links
+
+1. [**Widgets**](#widgets)
+1. [**Joystick Configuration**](#joysticks)
+1. [**Data Recording**](#status-and-recordings)
+1. [**Mission Planning**](#mission-planning)
+
 ## Display Breakdown
 
 {{ easy_image(src="interface-overview", width=650, center=true) }}
 
 Cockpit's main interface consists of three main components:
+1. A central region, for regular [widgets](#widgets)
+1. Mini-widget containers, including the header and footer bars
 1. A sidebar menu icon
    - Normally a sidebar tab arrow on the left
    - Can be configured as a burger menu in the top left corner
-1. A central region, for regular widgets
-1. Mini-widget containers, including the header and footer bars
+
+### Header Bar
+
+The header bar is consistent across [Views](#views), and is usually used for displaying
+[mission information](#mission-information) mini-widgets and 
+[connection statuses](#connection-statuses).
+
+### Footer Bar
+
+The footer bar is unique to each View, and is generally used to display [indicators](#very-generic-indicators)
+of various kinds, along with [vehicle status controllers](#vehicle-status-controllers) and
+[interface controls](#interface-controls).
 
 ### Sidebar Menu
 
@@ -59,32 +78,10 @@ connected to, and how and where it processes and outputs commands and data (incl
 The available settings interfaces and options are [covered in a dedicated section](#behaviour-configuration)
 below.
 
-### Header Bar
-
-The header bar consists of the following main elements:
-
-#### Mission Name
-
-It is possible to set a display name for the current mission/operation from beside the burger menu.
-
-A default mission name is randomly selected each time Cockpit is opened/restarted. The default names are not
-used for saving files/recordings, but modified names are. While modifying the mission name it is possible
-to restore the previous name (e.g. if you change you mind or make a mistake).
-
-{{ easy_image(src="mission-name-config", width=450, center=true) }}
-
-#### Mini Widget Container
-
-When space is available, [mini widgets](#mini-widgets) can be placed on the right side of the alerts display.
-
-#### Date
-
-The current time and date is displayed in the top right corner.
-
 ## Edit Mode
 
 Cockpit is built around a configurable widget system, so you can design and modify custom interfaces for
-for different applications.
+different applications.
 
 {{ easy_image(src="edit-mode", width=650, center=true) }}
 
@@ -102,11 +99,8 @@ Cockpit's interface consists of a configurable widget system, with
     - can be added/hidden/removed/duplicated, saved and loaded to/from the display device, and
     dynamically switched between during operation
 1. [Widgets](#widgets) (within each view)
-    - for advanced information display and vehicle control
-    - can be added/removed, placed in arbitrary locations, and resized
-1. [Mini-widgets](#mini-widgets) (within mini-widget bar widgets)
-    - for basic information display and vehicle/interface control
-    - can be added/removed, reordered within widget bars, and moved between them
+    - for information display and vehicle control
+    - can be added/removed, moved around, and resized
 
 ### Profiles
 
@@ -183,16 +177,131 @@ export the desired view(s) from one and import them into the other(s).
     - Clicking on a regular widget adds it to the view, after which it can be positioned and resized as desired
     - Mini widgets have fixed sizes, but can be dragged and dropped into the desired location in the header/footer
       bars or in a custom [mini widget bar](#mini-widget-bar)
-    - The selector in the bottom left can be used to choose between editing regular or mini widgets
+        - The header bar is shared between Views, and the bottom bar is unique to each View
+    - The selector in the bottom left can be used to choose between editing regular, mini, or input widgets
 - Some widgets can be configured, by clicking the cog settings icon in the "Widgets in View" list
     - [There are currently cog icons for all widgets](https://github.com/bluerobotics/cockpit/issues/541),
       so if you click a cog icon and nothing happens it means that widget is not configurable
 
 ### Widgets
 
-There are several types of widgets available, and in future it will be possible to create, import, and use custom widgets as well.
+There are several types of widgets available, including different displays of the same information for use in different contexts:
+- **Regular Widgets** include detailed displays like videos, maps, instrument gauges, and overlays
+   - They can only be located in the main display area
+- **Mini Widgets** are small (usually text-based) indicators and buttons
+   - They can be in the shared header bar, or in the View-specific footer bar or a [mini widget bar](#mini-widget-bar)
+     in the main display area
+- [**Input Widgets**](#input-widgets) are like mini-widgets dedicated for custom user inputs / commands
+   - They need to be placed inside a [custom widget base](#custom-widget-base) widget
 
-#### Regular Widgets
+<br>
+{{ easy_image(src="widgets-variety", width=650) }}
+
+#### Mission Information
+
+##### Mission Name
+By default, a name is randomly generated for the current mission/operation each time Cockpit is opened/restarted,
+and displayed in the mission name indicator:
+{{ easy_image(src="mission-name-mini-widget", width=400, center=true) }}
+
+Clicking on the widget allows setting a custom name, which is then used for saving files and video recordings:
+{{ easy_image(src="mission-name-config", width=450, center=true) }}
+
+While modifying the mission name it is possible to restore the previous name, in case you change you mind or 
+make a mistake.
+
+##### Alerter
+The alerter mini-widget allows displaying Cockpit's [alerts](#alerts-1), along with their severity:
+{{ easy_image(src="alert-mini-widget", width=400, center=true) }}
+
+Hovering over the widget displays a scrollable history:
+{{ easy_image(src="alert-history", width=450, center=true) }}
+
+##### Power/Battery Indicator
+{{ easy_image(src="power-mini-widget", width=80, center=true) }}
+Configuration allows choosing to display current or instantaneous power draw, or alternating between both
+{{ easy_image(src="power-config", width=250, center=true) }}
+
+##### Date and Time
+The current date and time can be displayed in a mini-widget:
+{{ easy_image(src="clock-mini-widget", width=150, center=true) }}
+
+{% note() %}
+If the time is needed in seconds, see the [Alerter](#alerter).
+{% end %}
+
+#### Connection Statuses
+
+##### Vehicle Connection Indicator
+When Cockpit gains or loses connection with the vehicle it displays a green/red border around the screen.
+The vehicle connection mini-widget provides a continuous indication: 
+{{ easy_image(src="vehicle-connected-mini-widget", width=70, center=true) }}
+
+##### Joystick Connection Indicator
+The joystick connection mini-widget indicates whether a joystick is disconnected, disabled, or connected:
+{{ easy_image(src="joystick-mini-widget", width=120, center=true) }}
+
+Clicking on the widget allows manually disabling the connection:
+{{ easy_image(src="joystick-config", width=300, center=true) }}
+
+which can be useful if multiple users are switching control of the vehicle between separate devices with
+Cockpit open, or to prevent a faulty joystick from sending errant commands without needing to physically
+disconnect or unpair it.
+
+##### GPS Connection Indicator
+For vehicles that use satellite positioning, the GPS connection mini-widget indicates the number of
+connected satellites, and the status of the position lock:
+{{ easy_image(src="gps-mini-widget", width=100, center=true) }}
+
+#### Vehicle Status Controllers
+Vehicle status and modes are controllable using [Cockpit Actions](#cockpit-actions) assigned to joystick
+button functions, but these mini-widgets provide an on-screen interface for doing so, while also
+presenting the current state.
+
+##### Arm / Disarm
+{{ easy_image(src="arm-disarm-mini-widget", width=250, center=true) }}
+
+##### Flight Mode
+{{ easy_image(src="flight-mode-mini-widget", width=150, center=true) }}
+
+#### Interface Controls
+##### View Selector
+
+The actively displayed [View](#views) is specified and can be switched between using the View selector
+mini-widget:
+{{ easy_image(src="view-selector", width=120, center=true) }}
+
+{% note() %}
+It is also possible to switch Views using [Cockpit Actions](#cockpit-actions) assigned to joystick
+button functions.
+{% end %}
+
+#### Very Generic Indicators
+{{ easy_image(src="very-generic-widget", width=100, center=true) }}
+
+These are versatile mini-widgets that can be configured to track almost any information Cockpit receives
+from the vehicle, including:
+1. any variable that is inside a [MAVLink message](https://mavlink.io/en/messages/)
+   - messages with an ID field are separated into different instances per ID
+   - [`NAMED_VALUE_FLOAT/INT`](https://mavlink.io/en/messages/common.html#NAMED_VALUE_FLOAT) messages are
+     split by name, **including showing custom ones** (Cockpit does not need to know these names in advance)
+   - only messages from ArduPilot vehicles are currently known about / supported
+      - e.g. those from the [common](https://mavlink.io/en/messages/common.html) or
+        [ardupilotmega](https://mavlink.io/en/messages/ardupilotmega.html) message sets
+1. select information from the onboard computer
+   - e.g. `blueos/cpu/tempC` for the BlueOS CPU temperature
+
+For configuration convenience, several pre-made presets are available for usage with common variables:
+{{ easy_image(src="very-generic-widget-config-presets", width=300, center=true) }}
+
+For custom setups, it is also possible to specify a display unit, a value multiplier, an icon, the number of
+digits after the decimal place, and a custom display name:
+{{ easy_image(src="very-generic-widget-config-custom", width=500, center=true) }}
+
+Selecting a variable is done through a dropdown, which can also be typed into to perform a fuzzy search for
+terms of interest.
+
+#### Attitude Indicators
 
 ##### Attitude HUD
 
@@ -208,6 +317,18 @@ The virtual horizon widget displays the vehicle's pitch and roll as though on th
 {{ easy_image(src="virtual-horizon-widget", width=300, center=true) }}
 
 It is most useful for guided and/or autonomous control, where the main display is of the vehicle's position.
+
+##### Attitude Values
+
+Roll, pitch, and yaw, and their rotation rates, can be accessed through the
+[`ATTITUDE`](https://mavlink.io/en/messages/common.html#ATTITUDE) MAVLink message, which forms the
+basis for the main attitude widgets.
+
+When operating in an attitude-stabilised flight mode, the _target_ attitude values are accessible
+through the [`NAV_CONTROLLER_OUTPUT`](https://mavlink.io/en/messages/common.html#NAV_CONTROLLER_OUTPUT)
+MAVLink messages, and can be displayed in Very Generic Indicator widgets if desired.
+
+#### Heading Indicators
 
 ##### Compass
 
@@ -230,6 +351,14 @@ It is possible to configure whether the exact heading angle is shown, whether to
 (default is 0 to 360°), and the colour of the lines:
 {{ easy_image(src="compass-hud-config", width=500, center=true) }}
 
+##### Heading Values
+
+Heading indicators typically use the yaw from the [attitude values](#attitude-values), but for vehicles
+with relevant sensors and configuration, the raw heading form a GPS unit can be accessed through
+[`GPS_RAW_INT`](https://mavlink.io/en/messages/common.html#GPS_RAW_INT) messages.
+
+#### Depth Indicators
+
 ##### Depth HUD
 
 The depth HUD indicates the vehicle's current depth as determined by its external pressure sensor:
@@ -240,28 +369,32 @@ This is primarily useful for underwater vehicles.
 Configuration determines whether the exact depth value is shown, and the colour of the lines:
 {{ easy_image(src="depth-hud-config", width=500, center=true) }}
 
-##### IFrame
+##### Depth Mini-Widget
 
-The iframe widget provides an inline frame that can display another HTML page within the Cockpit interface.
-This is particularly useful for showing the interfaces and displays of BlueOS Extensions (e.g. for a sonar viewer):
-{{ easy_image(src="iframe-widget", width=400, center=true) }}
+{{ easy_image(src="depth-mini-widget", width=150, center=true) }}
 
-Configuration determines the URL to fetch the page from, as well as the overall transparency of the iframe:
-{{ easy_image(src="iframe-config", width=400, center=true) }}
+#### Altitude Indicators
 
-##### Image Viewer
+##### Altitude Indicator Mini-Widget
 
-The image viewer widget shows an image that is accessible to the control station computer via its network.
-{{ easy_image(src="image-viewer-config", width=400, center=true) }}
+The Altitude mini-widget displays the vehicle's altitude estimate, relative to its barometer calibration point.
 
-Images from the internet can be included (e.g. a logo for branding) as long as the computer has internet
-access when Cockpit is started.
+{{ easy_image(src="altitude-mini-widget", width=150, center=true) }}
 
-This is most useful for images hosted on the local network, and was designed to display the output of a
-self-replacing mjpeg like from an ESP32-Cam. It could also display images hosted by a
-[BlueOS Extension](https://blueos.cloud/docs/blueos/latest/extensions).
+It is intended for aerial vehicles, so positive is upwards.
 
-##### Map
+#### Altitude Modifiers
+
+When using a Takeoff/Land or Change Altitude Commander mini-widget,
+
+{{ easy_image(src="takeoff-mini-widget", width=120, center=true) }}
+{{ easy_image(src="change-altitude-mini-widget", width=120, center=true) }}
+
+a slider is created to specify the desired altitude to fly to:
+
+{{ easy_image(src="change-altitude-slider", width=70, center=true) }}
+
+#### Map
 
 For vehicles with a positioning system, the map widget displays the 
 [registered home location](https://mavlink.io/en/messages/common.html#MAV_CMD_DO_SET_HOME) and the vehicle's
@@ -275,7 +408,7 @@ There are buttons to
 1. download the current mission from the vehicle, and display it on the map
 1. execute the mission that is on the vehicle
 {{ easy_image(src="map-widget", width=350, center=true) }}
-{{ easy_image(src="map-config", width=350, center=true) }}
+{{ easy_image(src="map-config", width=250, center=true) }}
 
 For vehicles with a supporting autopilot firmware and valid position estimate it is also possible to guide
 the vehicle to a new position via GoTo commands (which can be sent by clicking a target location on the map,
@@ -286,23 +419,29 @@ and clicking the GoTo button).
 It is [not currently possible](https://github.com/bluerobotics/cockpit/issues/1513) to manually specify the
 vehicle's current position, GPS origin, or home location.
 
-##### Video Player
+#### Video Widgets
 
-The video player widget displays an available WebRTC video stream, as set up through the [Video Configuration
-menu](#video-streams-configuration). BlueOS uses the 
-[MAVLink Camera Manager](https://github.com/mavlink/mavlink-camera-manager) to automatically create a WebRTC 
-stream for applicable video streams.
-{{ easy_image(src="video-widget", width=400, center=true) }}
+Cockpit has a few different widgets for handling videos from different sources.
 
-Multiple video widgets can be added to display different video streams.
+Multiple video widgets can be added to display different video streams, with options for how the frames
+should fit within the widget:
 
-Configuration allows selecting which video stream to display, flipping and rotating the stream image, and
-choosing how the frames should fit within the widget:
 - **cover**: maintains the video aspect ratio, but expands the frames to fully cover the widget, and crops
 off the sides or top+bottom if they extend beyond the widget boundaries
 - **fill**: stretches the frames so that all sides are against the corresponding widget boundary
 - **contain**: maintains the video aspect ratio, but shrinks the frames to fully fit inside the widget,
 adding transparent padding at the sides / above+below as necessary
+
+##### WebRTC Video Player
+
+WebRTC Video Player widgets can display an available WebRTC video stream, as set up through the [Video Configuration
+menu](#video-streams-configuration). BlueOS uses the 
+[MAVLink Camera Manager](https://github.com/mavlink/mavlink-camera-manager) to automatically create a WebRTC 
+stream for applicable video streams.
+{{ easy_image(src="video-widget", width=400, center=true) }}
+
+Configuration allows selecting which video stream to display, flipping and rotating the stream image, and
+choosing how the frames should fit within the widget (as described above):
 {{ easy_image(src="video-widget-config", width=400, center=true) }}
 
 If your video stream is having some issues, the available stream performance statistics may help to determine
@@ -310,12 +449,39 @@ the cause of the problem:
 
 {{ easy_image(src="video-widget-stats", width=170, center=true) }}
 
-Video recording (to Cockpit's [Video Library](#video-library)) is possible using a [mini widget](#mini-widgets),
-and directly records the incoming stream (not the scaled and cropped/flipped/rotated display of the widget).
-Cockpit can be configured to [log some telemetry values](#telemetry-logs-subtitle-files), and record them as a
-subtitle file for convenient video playback:
+##### WebRTC Video Recorder
+It is possible to directly record an incoming WebRTC video stream (not the scaled and cropped/flipped/rotated
+display of the widget):
 
+{{ easy_image(src="video-recording-mini-widget", width=180, center=true) }}
+
+Clicking the red icon on the left allows quickly starting and stopping recording of the currently specified
+stream.
+
+Clicking the stream name in the middle of the widget allows choosing which stream to record:
+{{ easy_image(src="video-recording-config", width=250, center=true) }}
+
+Recordings are saved using the [mission name](#mission-name) and starting timestamp, and can be found in
+the [Video Library](#video-library). When videos are available an indicator shows on the right side of the
+recording widget, which can be clicked to open the library directly.
+
+{% note() %}
+Recording occurs in the display device (not onboard the vehicle).
+{% end %}
+
+{% note() %}
+When running Cockpit in a browser, downloading recordings currently temporarily stores them in memory, which
+may limit the maximum duration of individual recordings. The standalone application records videos directly
+to the filesystem, so does not have this issue.
+{% end %}
+
+To make the recorded videos easier to analyse, Cockpit can be configured to
+[log telemetry values](#telemetry-logs-subtitle-files), and record them as a subtitle file for 
+convenient video playback:
 {{ easy_image(src="video-subtitles", width=450, center=true) }}
+
+If a recording is ongoing, Cockpit will try to prevent the tab/application from closing, with a warning:
+{{ easy_image(src="video-recording-termination-warning", width=550, center=true) }}
 
 ##### URL Video Player
 
@@ -326,56 +492,109 @@ being redirected via BlueOS, but can also be used to display online videos if th
 Configuration allows selecting which URL to stream a video from, as well as options for whether to play the
 video automatically, whether it should loop when complete, whether it should play sound or be muted, whether
 playback controls should be exposed, and choosing how the video frames should fit within the widget (as
-described in [Video Player](#video-player).
+described above).
 {{ easy_image(src="url-video-config", width=450, center=true) }}
 
+{% note() %}
+See also the [External Displays](#external-displays) section, for some alternatives with related functionality.
+{% end %}
+
+#### External Displays
+
+##### IFrame
+
+The iframe widget provides an inline frame that can display another HTML page within the Cockpit interface.
+This is particularly useful for showing the interfaces and displays of IP cameras and BlueOS Extensions:
+{{ easy_image(src="iframe-widget", width=350, center=true) }}
+
+Configuration determines the URL to fetch the page from, as well as the overall transparency of the iframe:
+{{ easy_image(src="iframe-config", width=450, center=true) }}
+
+##### Image Viewer
+
+The image viewer widget shows an image that is accessible to the control station computer via its network.
+{{ easy_image(src="image-viewer-config", width=400, center=true) }}
+
+Images from the internet can be included (e.g. a logo for branding) as long as the computer has internet
+access when Cockpit is started.
+
+{% note() %}
+This is most useful for images hosted on the local network, and was designed to display the output of a
+self-replacing mjpeg like from an ESP32-Cam. It could also display images hosted by a
+[BlueOS Extension](https://blueos.cloud/docs/blueos/latest/extensions).
+{% end %}
+
+#### Data Plotting
+
+##### Plotter Widget
+
+The plotter widget allows plotting data on a graph:
+{{ easy_image(src="plotter-widget", width=300, center=true) }}
+
+Configuration options are provided for selecting the variables to plot, and modifying basic appearance
+characteristics:
+{{ easy_image(src="plotter-config", width=400, center=true) }}
+
+{% note() %}
+The data lake which the widget gets its data from by default only provides access to the Cockpit memory
+usage, and values added from [Custom Actions](#custom-actions). It will soon be connected to the
+MAVLink message fields as well, and other options available to
+[Very Generic Indicators](#very-generic-indicators).
+{% end %}
+
+#### Container Widgets
 ##### Mini Widget Bar
 
-The mini widget bar widget is a rectangular container for storing [mini widgets](#mini-widgets).
+The mini widget bar widget is a rectangular container for storing [mini widgets](#widgets).
 
 {{ easy_image(src="mini-widgets-bar-widget", width=500, center=true) }}
 
-#### Mini Widgets
+##### Custom Widget Base
 
-Mini widgets are small, generally single-function widgets that can be drag-positioned in the
-[header bar](#header-bar), footer bar, or any [mini widget bar](#mini-widget-bar).
+{{ easy_image(src="custom-widget-base", width=250, center=true) }}
 
-They are editable by selecting "Mini Widgets" in the bottom left corner of edit mode, then either
-dragging a new mini-widget (from those available along the bottom of the screen) into a
-[mini-widget bar](#mini-widget-bar), or configuring or removing one from the "current mini-widgets"
-list in the bottom left corner.
+#### Input Widgets
 
-The current options include
-- Arm/Disarm toggle switch
-- Vehicle connection status indicator
-- Power / battery indicator
-- Depth indicator
-- (Relative) altitude indicator
-- Very generic indicator
-    - configuring this allows selecting which vehicle variable to track, out of
-      any that have been received so far (including custom ones)
-    - only variables coming from Ardupilot vehicles are currently supported
-    - available variables include those comming from `NAMED_VALUE_FLOAT/INT` messages as well
-      as any variable that is inside any MAVLink message
-    - several pre-made presets are available for usage with common variables
-    - it is also possible to specify a display unit, a value multiplier, an icon, the number of
-      digits after the decimal place and a custom display name
-{{ easy_image(src="very-generic-widget-config-presets", width=300, center=true) }}
-{{ easy_image(src="very-generic-widget-config-custom", width=300, center=true) }}
-- Video recorder
-    - allows recording one of the available WebRTC streams, or the full Cockpit tab
-    - recording occurs in the browser of the display device (not onboard the vehicle)
-        - downloading recordings currently temporarily stores them in memory, which may limit the
-          maximum time for individual recordings
-    - recordings are saved using the [mission name](#mission-name) and the starting timestamp
-    - completed recordings are accessible through the [Video Library](#video-library)
-{{ easy_image(src="video-recording-config", width=250, center=true) }}
-{{ easy_image(src="video-recording-termination-warning", width=550, center=true) }}
-- Joystick connection status indicator
-- Flight mode selector
-- GPS status indicator
-- [View](#views) selector
-- Takeoff/land button
+Input widgets should be placed in a [Custom Widget Base](#custom-widget-base), and can be configured by
+clicking on them when in [Edit Mode](#edit-mode).
+
+While other widgets generally have predefined behaviour, these are specifically designed to trigger and
+set variables for use as parameters in [Custom HTTP Actions](#custom-actions).
+
+##### Action Buttons
+Buttons can trigger a specified Action (currently only [Custom HTTP Actions](#custom-actions)) when pressed.
+{{ easy_image(src="button-input", width=120, center=true) }}
+{{ easy_image(src="button-input-config", width=250, center=true) }}
+
+##### Boolean Inputs
+For parameters that require True/False or 0/1 values, you can use a Switch or Checkbox Input widget: 
+
+{{ easy_image(src="switch-input", width=100, center=true) }}
+{{ easy_image(src="checkbox-input", width=100, center=true) }}
+{{ easy_image(src="boolean-input-config", width=250, center=true) }}
+
+##### Multi-value Inputs
+If a parameter has a set of possible value options, that can be represented using a Dropdown Input widget:
+
+{{ easy_image(src="dropdown-input", width=180, center=true) }}
+{{ easy_image(src="dropdown-input-config", width=250, center=true) }}
+
+##### Range Inputs
+Parameters with an integer or decimal range of values can be set using Dial and Slider Input widgets.
+
+Dial Inputs allow configuring a value range, rounded to the nearest integer:
+{{ easy_image(src="dial-input", width=100, center=true) }}
+{{ easy_image(src="dial-input-config", width=250, center=true) }}
+
+Slider Inputs allow configuring a value range, rounded to the first decimal place (e.g. 0.1):
+{{ easy_image(src="slider-input", width=200, center=true) }}
+{{ easy_image(src="slider-input-config", width=250, center=true) }}
+
+##### Input Labels
+If there are separate groups of Input widgets in a Custom Widget Base, it can be useful to give them headings
+with Label widgets:
+{{ easy_image(src="label-input", width=100, center=true) }}
+{{ easy_image(src="label-input-config", width=250, center=true) }}
 
 ## Behaviour Configuration
 
@@ -636,7 +855,7 @@ interfaces of your MAVLink router. Relevant information can be found in the
 BlueOS users.
 {% end %}
 
-Available variables for logging are determined using the [mini-widgets](#mini-widgets) included in a
+Available variables for logging are determined using the [mini-widgets](#widgets) included in a
 [View](#views) in the active [Profile](#profiles), including Very Generic Indicator widgets, which can display
 almost anything Cockpit receives from the vehicle. It is also possible to add custom text values, to include
 extra metadata like a company name or vehicle operator.
@@ -672,10 +891,8 @@ Downloaded logs can be opened in a standard text editor, and include a sequence 
 ### Alerts
 
 Alerts received from the autopilot ([`STATUSTEXT`](https://mavlink.io/en/messages/common.html#STATUSTEXT)), as
-well as application notifications (like loss of connection to the vehicle) are displayed in the central alerts
-pane, which can be hovered over to access a scrollable history of alerts:
-
-{{ easy_image(src="alert-history", width=450, center=true) }}
+well as application notifications (like loss of connection to the vehicle) are displayed in the
+[alerter mini-widget](#alerter).
 
 Some alerts can be read aloud on arrival using text to speech technology, which [can be configured](#alerts).
 
