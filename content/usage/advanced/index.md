@@ -132,35 +132,43 @@ It is [not currently possible to delete users](https://github.com/bluerobotics/c
 
 A "profile" is a collection of [views](#views) that are relevant to a particular use-case or vehicle.
 
-If one control station computer is used by multiple operators (e.g. within the same organisation)
-at different times then it could be useful for each operator to have their preferred interface saved on
-that computer, and they can switch to their profile when they open up Cockpit.
+If one control station computer is used for multiple complex use-cases (which each require multiple 
+separate Views), then they can be separated into Profiles and the most relevant one can be switched
+to at the start of each mission.
 
 Alternatively, if the same control station computer is used to control different types of vehicles
 (e.g. a boat, an underwater ROV, and a drone) then the operator can load the appropriate vehicle control
-interface when they connect to a different vehicle type. It will soon be possible to store and load
-profiles from the vehicle itself, instead of only on the control station computer, which makes it easier
-to connect a different control computer to a vehicle and load the familiar control profiles for that vehicle.
+interface when they connect to a different vehicle type. Profiles are registered with the vehicle types
+they're expected to be used for, so if there is only one profile that matches the connected vehicle
+then Cockpit will load that automatically.
+
+For BlueOS-based vehicles, Cockpit can automatically store and load Users and their Profiles on/from the
+vehicle, which can then be synchronised when Cockpit connects (including on separate control station
+devices, or on a different network), which makes it convenient to quickly and easily load familiar
+profiles.
 
 #### Default Profiles
 
-Cockpit includes default profiles for submarine and boat use-cases. It is possible to restore to these
-(as a known reasonable interface) in case something goes wrong with your custom profiles, but be aware
-that the defaults may change between different Cockpit versions, so may end up restoring to an interface
-you haven't seen before.
+Cockpit includes default profiles for submarine, boat, and generic MAVLink vehicle use-cases. It is 
+possible to restore to these (as a known reasonable interface) in case something goes wrong with your
+custom profiles, but be aware that the defaults may change between different Cockpit versions, so may
+end up "restoring" to an interface you haven't seen before.
+
+{{ easy_image(src="profile-selector", width=250, center=true) }}
 
 #### Profile Configuration
 
-1. Open edit mode (via the [sidebar menu](#sidebar-menu))
-1. Select a custom/user profile to edit, and/or create, import, or remove profiles as desired
-    - Profiles can be renamed by clicking on the settings cog icon, or duplicated via the copy icon
-    - Additional profiles can be imported from the display device or the connected vehicle
-        - Opening Cockpit on a new device will automatically try to load profiles from the vehicle
-        - If the browser already has Cockpit profiles stored, it will not try to load any from the
-          vehicle unless the import from vehicle button is clicked
-    - The set of available profiles can be stored onto the vehicle, or reset/restored to the defaults
-        - Storing profiles onto the vehicle overwrites those that may already be there
-    - The "Views" list shows the views that are available within the selected profile
+Profiles are managed via the top left corner region of edit mode, which can be accessed through the
+[sidebar menu](#sidebar-menu). Clicking the three dots (⋮) to the right of the current profile allows
+renaming and configuring it:
+
+{{ easy_image(src="profile-config", width=500, center=true) }}
+
+It is also possible to duplicate, export, or delete it, as well as import or create a new profile,
+reset this User's profiles to the default ones, and enable or disable the alignment grid for widget
+placement and sizing:
+
+{{ easy_image(src="profile-manager", width=250, center=true) }}
 
 ### Views
 
@@ -215,6 +223,7 @@ export the desired view(s) from one and import them into the other(s).
 There are several types of widgets available, including different displays of the same information for use in different contexts:
 - **Regular Widgets** include detailed displays like videos, maps, instrument gauges, and overlays
    - They can only be located in the main display area
+   - Their positions and sizes snap to the [Profile alignment grid](#profile-configuration), if it is enabled
 - **Mini Widgets** are small (usually text-based) indicators and buttons
    - They can be in the shared header bar, or in the View-specific footer bar or a [mini widget bar](#mini-widget-bar)
      in the main display area
