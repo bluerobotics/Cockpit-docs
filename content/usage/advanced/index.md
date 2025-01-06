@@ -781,6 +781,8 @@ These features help with error tracking and troubleshooting, so in normal use ca
   track common errors and performance issues across global Cockpit usage
 - **System logging** creates [application logs](#system-application-logs) that can be checked or shared with
   developers to help debug issues
+   - If system logs are disabled then messages are sent to the browser/application console instead, which may
+     reduce performance
 
 ### Missions and Safety
 
