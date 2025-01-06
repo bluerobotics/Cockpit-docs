@@ -48,6 +48,12 @@ Download the latest version for your operating system here:
 
 or check the [releases](https://github.com/bluerobotics/cockpit/releases), for a list of all available versions, and the main changes between them.
 
+### Updates
+
+The Cockpit application checks for new versions each time it opens, and if the latest available version
+is newer than the installed one, it provides some information about the new release, and a button for if
+you want to download and install it.
+
 <script type="text/javascript">
 async function fetchLatestReleaseInfo() {
   const url = "https://api.github.com/repos/bluerobotics/cockpit/releases/latest";
