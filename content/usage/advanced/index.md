@@ -90,8 +90,12 @@ different applications.
 {{ easy_image(src="users-profiles-views", width=500, center=true) }}
 
 Cockpit's interface consists of a configurable widget system, with
+
+0. [Users](#users)
+    - for supporting different operators
+    - can be added and switched between in [general configuration](#general)
 1. [Profiles](#profiles)
-    - for supporting different operators and/or vehicle types
+    - for supporting different vehicle types and/or operating modes
     - can be added/removed/duplicated, saved and loaded (to/from both the vehicle and the display device),
     and switched between in edit mode
 1. [Views](#views) (within each profile)
@@ -102,9 +106,31 @@ Cockpit's interface consists of a configurable widget system, with
     - for information display and vehicle control
     - can be added/removed, moved around, and resized
 
+### Users
+
+Users are more abstract than the interface, and are mostly helpful for the following situations:
+1. Multiple vehicle operators who share a single control station computer (e.g. within an
+   organisation), and don't want to use the same configurations
+   - This can alternatively be achieved with [Profiles](#profiles), but having separate users
+     provides a cleaner separation, and easier options to reset everything
+1. Multiple operators who share a single BlueOS-based vehicle, and each want to synchronise their
+   own configuration with it
+
+For individuals with their own vehicles and control computers, it is generally fine to set a
+username once and then ignoring that the "user" level exists.
+
+Switching users is done through [`Settings / General`](#general):
+{{ easy_image(src="user-manager", width=500, center=true) }}
+
+Creating new users is possible by clicking the "Add New" button, and choosing a unique name.
+The new user copies the Profiles of the currently selected user (if one exists - otherwise
+it uses Cockpit's default profiles).
+
+It is [not currently possible to delete users](https://github.com/bluerobotics/cockpit/issues/1384).
+
 ### Profiles
 
-A "profile" is a collection of [views](#views) that are relevant to a particular use-case or operator.
+A "profile" is a collection of [views](#views) that are relevant to a particular use-case or vehicle.
 
 If one control station computer is used by multiple operators (e.g. within the same organisation)
 at different times then it could be useful for each operator to have their preferred interface saved on
@@ -608,7 +634,7 @@ connect to a vehicle:
 
 {{ easy_image(src="general-config", width=400) }}
 
-- Create and switch the active user
+- Create and switch the active [User](#users)
 - Specify the primary network address to connect to the vehicle
 - Optionally override the autopilot / MAVLink router telemetry connection address
 - Optionally override the WebRTC media connection address, for video streaming
