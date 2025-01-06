@@ -661,25 +661,64 @@ there's a dedicated interface for managing in [Edit Mode](#edit-mode).
 ### Joysticks
 
 Cockpit is intended to work with arbitrary joystick types, and allows mapping joystick buttons and axes to
-various [protocol functions](#joystick-protocols), which can send inputs and commands to the vehicle, or trigger
-interface events. Once a function mapping is configured it is possible to export it to the computer and/or the
-vehicle, which can then be imported later to new Cockpit instances/devices.
+various [protocol functions](#joystick-protocols), which can send inputs and commands to the vehicle, or
+trigger interface events.
 
-{{ easy_image(src="../getting-started/joystick-config", width=600, center=true) }}
+{% note() %}
+The default function mapping is selected based on the connected vehicle type, and Cockpit automatically
+synchronises function mappings to/from the [User](#users), but it is also possible to manually export 
+them as a file, and import them into another User or a different Cockpit instance/device.
+{% end %}
 
+Known joystick types have an interactive diagram for mapping button and axis functions visually:
+{{ easy_image(src="joystick-button-mapping", width=600, center=true) }}
+
+Button presses and axis movements should be mirrored on the diagram, and clicking on a button
+element in the diagram allows remapping its mapped function.
+
+{% note() %}
+Axes currently must have unique functions, so mapping an axis to an Action that is already in
+use will result in that Action being unmapped from whichever axis was using it previously.
+{% end %}
+
+There is also a table view, which is available for both known and new joystick types:
+{{ easy_image(src="joystick-table", width=600, center=true) }}
+
+Buttons can be remapped to different Actions using the edit pencil at the far right of the corresponding row.
+
+{% note() %}
 Support is built in for simultaneous input from multiple sources, including multiple joysticks, and by
-default each joystick can provide up to 8 axis ranges and 32 buttons.
+default each joystick can provide up to 32 axis ranges and 32 buttons.
+{% end %}
 
 #### Joystick Protocols
 
 When mapping the functionality of a joystick button or axis, there are multiple protocols to choose from:
 
-{{ easy_image(src="joystick-button-mapping", width=500, center=true) }}
+{{ easy_image(src="joystick-protocols", width=500, center=true) }}
+{{ easy_image(src="joystick-axis-mapping", width=500, center=true) }}
+
 
 ##### MAVLink `MANUAL_CONTROL` Messages
 
 [`MANUAL_CONTROL`](https://mavlink.io/en/messages/common.html#MANUAL_CONTROL) MAVLink messages are 
-automatically sent to the vehicle at 25Hz, which is not currently configurable.
+automatically transmitted at 25Hz, which is not currently configurable.
+
+{% note() %}
+While it is generally expected for there to be a vehicle connected, Cockpit is capable of sending
+MAVLink Messages to a MAVLink system more generally, even without a vehicle included.
+{% end %}
+
+{% warning() %}
+If the browser tab is changed away from Cockpit, or the Cockpit application window is minimised,
+Cockpit loses access to the joystick inputs, and normally stops sending `MANUAL_CONTROL` messages
+to reflect the loss of input. This can trigger an autopilot failsafe, which may not be desirable,
+so an option is provided in the top right of the joystick page to tell Cockpit to repeatedly send
+the last joystick input it received before losing access to the joystick. 
+>
+>It is important to **always be conscious of where your vehicle is**, and what kind of hazards it
+is operating near.
+{% end %}
 
 Button functions are determined by the autopilot firmware - e.g. in ArduSub they correspond to
 [`BTNn_FUNCTION`](https://docs.bluerobotics.com/ardusub-zola/software/autopilot/ArduSub-4.1/developers/parameters/#btnn-function-function-for-button)
@@ -710,19 +749,8 @@ is raised to notify that the configured mapping is not fully as designed.
 ##### Cockpit Actions
 
 Joystick buttons can also be configured to run more general functionalities, like modifying the interface or
-sending a single MAVLink message. The current default Actions are:
-
-- `go_to_next_view`
-- `go_to_previous_view`
-- `toggle_bottom_bar`
-- `toggle_full_screen`
-- `hold_to_confirm`
-- `start_recording_all_streams`
-- `stop_recording_all_streams`
-- `mavlink_arm`
-- `mavlink_disarm`
-
-It is also possible to define your own [custom Actions](#custom-actions), or import them from files.
+sending a single MAVLink message. These options can be provided (or defined) using
+[Cockpit's Action system](#cockpit-actions-1).
 
 ##### Modifier Keys
 
@@ -737,7 +765,7 @@ functionality slots.
 
 ##### Other
 
-Currently only used for the "No Function" option.
+Currently only used for the "No Function" option, which is used when a button or axis input is unmapped.
 
 #### Custom Joysticks
 
@@ -844,12 +872,26 @@ If you want a similar feature for joystick button functions, consider assigning 
 can be triggered.
 {% end %}
 
-### Custom Actions
+### Cockpit Actions
 
 Cockpit's Action system provides a set of functionalities that can be triggered from any of Cockpit's
-supported input sources (e.g. joystick buttons, interface elements, other Actions, etc). There are
-some predefined ones, but it is also possible to define (and export or import) custom Actions with a
-few different approaches:
+supported input sources (e.g. joystick buttons, interface elements, other Actions, etc).
+
+#### Default Actions
+There are some predefined Actions built into Cockpit for convenience, including:
+
+- `go_to_next_view`
+- `go_to_previous_view`
+- `toggle_bottom_bar`
+- `toggle_full_screen`
+- `hold_to_confirm`
+- `start_recording_all_streams`
+- `stop_recording_all_streams`
+- `mavlink_arm`
+- `mavlink_disarm`
+
+#### Custom Actions
+It is also possible to define (and export or import) your own custom Actions, with a few different approaches:
 
 {{ easy_image(src="custom-actions-config", width=500) }}
 
@@ -861,6 +903,8 @@ few different approaches:
 - **HTTP Request Actions** can send arbitrary HTTP requests, including custom URL parameters, headers,
   and a JSON body
    - These are best for basic communication with arbitrary APIs
+   - Parameters that are defined using [Input Widgets](#input-widgets) can be easily modified during
+     operation
 {{ easy_image(src="custom-http-action", width=400, center=true) }}
 - **JavaScript Actions** are a blank canvas, with all the possibilities (but also the complexities) of
   programming your own functionalities
