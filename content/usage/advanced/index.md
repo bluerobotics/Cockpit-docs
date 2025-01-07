@@ -347,6 +347,10 @@ The attitude HUD widget displays the vehicle's pitch and roll as a heads-up disp
 It is possible to configure which components get displayed, as well as the line colour:
 {{ easy_image(src="attitude-hud-config", width=500, center=true) }}
 
+For vehicles with a tilt-controlled camera mount, specifying the camera vertical FOV allows
+the attitude HUD to account for the camera tilt angle in the displayed pitch lines and
+center aim indicator.
+
 ##### Virtual Horizon
 
 The virtual horizon widget displays the vehicle's pitch and roll as though on the gauge in a plane:
