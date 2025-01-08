@@ -446,8 +446,15 @@ There are buttons to
     - this may move around if the control station computer is on a boat
 1. move the map to follow the vehicle's current position
 1. download the current mission from the vehicle, and display it on the map
-1. execute the mission that is on the vehicle
+1. run the mission that is on the vehicle
 {{ easy_image(src="map-widget", width=350, center=true) }}
+
+{% note() %}
+[Mission Planning](#mission-planning) is documented in a dedicated section.
+{% end %}
+
+Configuration allows showing or hiding a trail of the vehicle's path over time.
+
 {{ easy_image(src="map-config", width=250, center=true) }}
 
 For vehicles with a supporting autopilot firmware and valid position estimate it is also possible to guide
@@ -984,7 +991,23 @@ Some alerts can be read aloud on arrival using text to speech technology, which 
 
 ## Mission Planning
 
-- Allows planning (and saving/loading) autonomous missions
-- Allows mission control
+For vehicles with a position estimate, `Mission Planning` mode (in the sidebar) can be used to create basic
+autonomous missions, and load a mission from a file.
 
+Planning can involve placing individual waypoints and generating basic surveys,
+including multiple survey regions with manually placed waypoints between them:
+
+{{ easy_image(src="mission-creation", width=200, center=true) }}
 {{ easy_image(src="mission-planning", width=600, center=true) }}
+
+{% note() %}
+Waypoints are currently limited to basic motion targets, but will soon be able to trigger custom
+MAVLink commands and other actions.
+{% end %}
+
+Once the mission is ready it can be uploaded to the vehicle, or saved to a file for later, before exiting
+mission planning via the `Flight` button in the sidebar:
+
+{{ easy_image(src="mission-sidebar", width=150, center=true) }}
+
+Starting the mission is done using the play button in the bottom left corner of a [Map widget](#map).
