@@ -1,7 +1,7 @@
 +++
 title = "Overview"
 description = "Cockpit overview."
-date = 2024-09-03T04:30:00+10:00
+date = 2025-01-08T21:30:00+11:00
 template = "docs/page.html"
 sort_by = "weight"
 weight = 0
@@ -50,21 +50,22 @@ It is currently available as:
 ## Primary Feature List
 
 - Browser-based control station software, for vehicle control and monitoring from any web-capable device
-- Widget-based layout system, with freeform positioning and resizing
+- [Widget](../advanced/#widgets)-based layout system, with freeform positioning and resizing
+    - Widgets can display generic input, including custom MAVLink `NAMED_VALUE_FLOAT`/`_INT` messages
 - Custom display [Views](../advanced/#views), for interface pages/profiles that can be switched between
     - Different browser windows/screens/devices can independently select which view to display
     - Views are downloadable and can be shared (json contains name and list of components and widget settings)
-- MAVLink `NAMED_VALUE_FLOAT`/`_INT` messages are self-registering for use in [mini-widgets](../advanced/#mini-widgets) (including custom ones!)
-- WebRTC-based [video widget](../advanced/#video)
+- WebRTC-based [video widget](../advanced/#video-widgets)
     - Multiple widgets can be added to support arbitrary numbers of video streams
-    - Includes video recording support, on the display device
+    - Includes video recording support on the display device, with
+      [subtitle files of telemetry](../advanced/#telemetry-logs-subtitle-files)
 - [Map widget](../advanced/#map)
-    - Provides position tracking
-    - Allows planning (and saving/loading) autonomous missions
+    - Provides position tracking and guiding
+    - Allows [planning](../advanced/#mission-planning) (and saving/loading) autonomous missions
     - Allows mission control
-    - In future will allow setting the current vehicle position, and clicking to guide the vehicle to new positions
-- Customisable Actions mappable to user inputs (e.g. joysticks, and key presses / screen clicks in future)
-    - Actions can send commands to the vehicle, or can trigger local events like view switching and starting video recording
+- Versatile [Actions system](../advanced/#cockpit-actions-1), mappable to user inputs through joystick actions and
+  on-screen elements
+    - Actions can send commands to the vehicle, or trigger local events like view switching and starting video recording
     - Includes support for simultaneous input from multiple sources (including multiple joysticks)
 - [Joysticks](../advanced/#joysticks) of _any_ type can be configured
     - Buttons and axes can be mapped to arbitrary Actions
@@ -72,6 +73,12 @@ It is currently available as:
     - Displays autopilot (MAVLink `STATUSTEXT`) and application alerts
     - Includes text to speech announcements
 - [Mission naming](../advanced/#mission-name) used on the interface and video save filenames
+
+## Quick Links
+
+1. [Documentation](@/_index.md)
+2. [Source code](https://github.com/bluerobotics/cockpit)
+3. [Releases, changelogs, files](https://github.com/bluerobotics/cockpit/releases)
 
 ## Community
 
