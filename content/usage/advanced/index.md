@@ -1,12 +1,11 @@
 +++
 title = "Advanced Usage"
 description = "Cockpit advanced usage documentation."
-date = 2023-12-13T01:30:00+11:00
+date = 2025-01-08T19:05:00+11:00
 template = "docs/page.html"
 sort_by = "weight"
 weight = 30
 draft = false
-aliases = ['/software/control-station/Cockpit-latest/advanced-usage']
 
 [extra]
 lead = ''
