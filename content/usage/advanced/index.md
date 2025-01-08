@@ -805,9 +805,11 @@ Available video streams and connection settings can be viewed and configured:
 - Set a custom name for each recognised video stream
    - Edit by double clicking the existing name, or clicking the pencil icon
 - Limit which IP address(es) are allowed to be used for video streaming
-   - This is particularly ecommended if there are multiple available connection routes (e.g. if there is a
+   - This is particularly recommended if there are multiple available connection routes (e.g. if there is a
      wired route through a tether, as well as a wireless connection, you should select the tether IP and
      remove the wireless one to avoid video stuttering from transmission over wifi).
+   - By default wired connection pathways (e.g. an ethernet tether or USB cable) are assigned as the
+     preferred pathway, if they are detected
 - Limit which network protocol(s) are allowed for video streaming
    - UDP can be lower latency but may drop frames, while TCP enforces frame ordering at the cost of some
      increased latency and jitter
