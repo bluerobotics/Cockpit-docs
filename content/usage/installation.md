@@ -19,7 +19,7 @@ and an IP-based (wifi / ethernet tether) connection to the [Control Station Comp
 Cockpit [is available](https://docs.bluerobotics.com/BlueOS-Extensions-Repository/#:~:text=Cockpit,-Maintainer)
 as a [BlueOS Extension](https://blueos.cloud/docs/blueos/latest/extensions).
 
-### Updates
+### Extension Updates
 
 Once installed, updating to a new Cockpit version can be done via the "Installed" tab of the BlueOS
 [Extensions Manager](https://blueos.cloud/docs/blueos/latest/advanced-usage/#extensions-manager).
@@ -40,7 +40,7 @@ Download the latest version for your operating system here:
 | Operating System | x86_64 | arm64 |
 | --- | --- | --- |
 | Windows | <a id="win-x64">Cockpit.exe</a> | Not available |
-| macOS | <a id="mac-x86_64">Cockpit-Intel.dmg</a> | Not yet available, use x86_64 version |
+| macOS[¹](#1) | <a id="mac-x86_64">Cockpit-Intel.dmg</a> | Not yet available, use x86_64 version |
 | iOS / iPadOS | N/A | use the BlueOS Extension in a browser |
 | Linux | <a id="linux-x86_64-AppImage">Cockpit-x86_64.AppImage</a><br><a id="linux-x86_64-flatpak">Cockpit-x86_64.flatpak</a> | <a id="linux-arm64-AppImage">Cockpit-arm64.AppImage</a><br><a id="linux-arm64-flatpak">Cockpit-arm64.flatpak</a> |
 | Android | N/A | use the BlueOS Extension in a browser |
@@ -48,7 +48,12 @@ Download the latest version for your operating system here:
 
 or check the [releases](https://github.com/bluerobotics/cockpit/releases), for a list of all available versions, and the main changes between them.
 
-### Updates
+[^1]: Cockpit is not yet registered with Apple, so may get flagged as a potential security threat. For now, the first open on macOS may require
+      right-clicking Cockpit in your Applications folder, selecting "Open", then choosing to "Open anyway" if prompted, or opening the security
+      preferences and scrolling down to "Allow" opening if there is no prompt.
+
+
+### Application Updates
 
 The Cockpit application checks for new versions each time it opens, and if the latest available version
 is newer than the installed one, it provides some information about the new release, and a button for if
