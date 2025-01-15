@@ -43,6 +43,8 @@ The footer bar is unique to each View, and is generally used to display [indicat
 of various kinds, along with [vehicle status controllers](#vehicle-status-controllers) and
 [interface controls](#interface-controls).
 
+During operation, it can be toggled between hidden and shown using a [Cockpit Action](#cockpit-actions-1).
+
 ### Sidebar Menu
 
 Clicking on the sidebar tab (on the left of the screen) provides access to various configuration options,
@@ -148,8 +150,8 @@ profiles.
 
 #### Default Profiles
 
-Cockpit includes default profiles for submarine, boat, and generic MAVLink vehicle use-cases. It is 
-possible to restore to these (as a known reasonable interface) in case something goes wrong with your
+Cockpit includes default profiles for submarine, boat, and generic MAVLink aerial vehicle use-cases. It
+is possible to restore to these (as a known reasonable interface) in case something goes wrong with your
 custom profiles, but be aware that the defaults may change between different Cockpit versions, so may
 end up "restoring" to an interface you haven't seen before.
 
@@ -172,8 +174,8 @@ placement and sizing:
 ### Views
 
 A "view" is like a page that [widgets](#widgets) can be displayed in. It is possible to configure multiple
-separate views and switch between them during operation, which is useful if you have different interface
-preferences for when you're performing different operations.
+separate views and switch between them during operation (including [with a joystick](#cockpit-actions-1)),
+which is useful if you have different interface preferences for when you're performing different operations.
 
 {{ easy_image(src="view-selector", width=120, center=true) }}
 
@@ -210,7 +212,7 @@ export the desired view(s) from one and import them into the other(s).
     - Dragging a regular widget card into the main display area adds it to the View, after which it can be 
       positioned and resized as desired
     - Mini widgets have fixed sizes, but can be dragged and dropped into the desired location in the header/footer
-      bars or in a custom [mini widget bar](#mini-widget-bar)
+      bars or in a custom [container widget](#container-widgets)
         - The header bar is shared between Views, and the bottom bar is unique to each View
     - The selector in the bottom left can be used to choose between editing regular, mini, or input widgets
 - Some widgets can be configured, by clicking the cog settings icon in the "Widgets in View" list
@@ -224,10 +226,9 @@ There are several types of widgets available, including different displays of th
    - They can only be located in the main display area
    - Their positions and sizes snap to the [Profile alignment grid](#profile-configuration), if it is enabled
 - **Mini Widgets** are small (usually text-based) indicators and buttons
-   - They can be in the shared header bar, or in the View-specific footer bar or a [mini widget bar](#mini-widget-bar)
-     in the main display area
+   - They can be in the shared header bar, or in the View-specific footer bar or a [container widget](#container-widgets)
 - [**Input Widgets**](#input-widgets) are like mini-widgets dedicated for custom user inputs / commands
-   - They need to be placed inside a [custom widget base](#custom-widget-base) widget
+   - They can be in the shared header bar, or in the View-specific footer bar or a [container widget](#container-widgets)
 
 <br>
 {{ easy_image(src="widgets-variety", width=650) }}
@@ -440,12 +441,19 @@ For vehicles with a positioning system, the map widget displays the
 [current position](https://mavlink.io/en/messages/common.html#GLOBAL_POSITION_INT), with an option to track
 the vehicle's path over time.
 
-There are buttons to 
-1. move the map to follow the registered 'home' location
-    - this may move around if the control station computer is on a boat
-1. move the map to follow the vehicle's current position
-1. download the current mission from the vehicle, and display it on the map
-1. run the mission that is on the vehicle
+There are buttons
+- in the bottom left to 
+   - move the map to follow the registered 'home' location
+      - this may move around if the control station computer is on a boat
+   - move the map to follow the vehicle's current position
+   - download the current mission from the vehicle, and display it on the map
+   - run the mission that is on the vehicle
+- in the bottom right to zoom in and out, and 
+- in the top right to
+   - Switch between structured and satellite map views
+   - Include [sea marks](https://wiki.openstreetmap.org/wiki/Seamarks/Seamark_Objects)
+   - Include [water depths](https://openseamap.org/index.php?id=bathymetrie&L=1)
+
 {{ easy_image(src="map-widget", width=350, center=true) }}
 
 {% note() %}
@@ -589,19 +597,26 @@ MAVLink message fields as well, and other options available to
 {% end %}
 
 #### Container Widgets
+
+Regular widgets for storing [mini widgets](#widgets) and [input widgets](#input-widgets) in the main
+View area.
+
 ##### Mini Widget Bar
 
-The mini widget bar widget is a rectangular container for storing [mini widgets](#widgets).
+A generic rectangular container widget, where list order determines internal positions.
 
 {{ easy_image(src="mini-widgets-bar-widget", width=500, center=true) }}
 
 ##### Custom Widget Base
 
+A collapsible, nameable, movable container widget, with a grid of internal position options.
+
 {{ easy_image(src="custom-widget-base", width=250, center=true) }}
+{{ easy_image(src="custom-widget-config", width=350, center=true) }}
 
 #### Input Widgets
 
-Input widgets should be placed in a [Custom Widget Base](#custom-widget-base), and can be configured by
+Input widgets should be placed in a [container widget](#container-widgets), and can be configured by
 clicking on them when in [Edit Mode](#edit-mode).
 
 While other widgets generally have predefined behaviour, these are specifically designed to trigger and
@@ -830,7 +845,8 @@ Telemetry values received by Cockpit can be displayed live, but also [recorded i
 
 Available variables can be dragged and dropped into the relevant screen region to specify where they show
 up in the generated subtitle file, or removed from recording by pressing the X beside the variable name in
-the grid. It is also possible to style the subtitle file using the Overlay Options expandable section.
+the grid. It is also possible to style the subtitle file using the Overlay Options expandable section, and
+specify the subtitle update rate in the Settings section.
 
 {{ easy_image(src="telemetry-config", width=600, center=true) }}
 
