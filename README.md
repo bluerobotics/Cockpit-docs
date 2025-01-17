@@ -1,6 +1,6 @@
 # Overview
 
-This repository documents the Blue Robotics' [Cockpit](https://blueos.cloud/cockpit/docs/usage/overview) software.
+This repository documents the Blue Robotics' [Cockpit](https://blueos.cloud/cockpit/docs/) software.
 
 The documentation is generated using the [Zola](https://www.getzola.org/) static site generator, together with [BlueTheme](https://github.com/bluerobotics/bluetheme).
 
