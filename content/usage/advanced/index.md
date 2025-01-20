@@ -875,6 +875,25 @@ These features help with error tracking and troubleshooting, so in normal use ca
    - If system logs are disabled then messages are sent to the browser/application console instead, which may
      reduce performance
 
+### MAVLink Inspection
+
+While it is possible to persistently monitor individual MAVLink message fields using
+[Very Generic Indicators](#very-generic-indicators) or [data plotting widgets](#data-plotting), the MAVLink inspector
+tab allows temporarily monitoring a small number of full MAVLink messages:
+
+{{ easy_image(src="mavlink-inspector", width=600) }}
+
+- Both incoming and outgoing message instances can be monitored
+- Pressing "Reset" clears the currently monitored messages
+
+{% note() %}
+It may be possible to access more detailed MAVLink inspection and tracking interfaces through the software that is
+routing MAVLink messages to Cockpit. BlueOS includes a built in 
+[MAVLink Inspector](https://blueos.cloud/docs/latest/usage/advanced/#mavlink-inspector), and if [using MAVLink Server
+as the router](https://blueos.cloud/docs/latest/usage/advanced/#mavlink-endpoints) there is a detailed debugging 
+interface provided.
+{% end %}
+
 ### Missions and Safety
 
 While autopilots often include built in failsafes and pre-arming checks, it can also be useful for the operator's
