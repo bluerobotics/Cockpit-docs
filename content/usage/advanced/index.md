@@ -566,6 +566,48 @@ This is particularly useful for showing the interfaces and displays of IP camera
 Configuration determines the URL to fetch the page from, as well as the overall transparency of the iframe:
 {{ easy_image(src="iframe-config", width=450, center=true) }}
 
+###### Automatic External IFrames
+
+HTTP Servers that provide a `register_service` endpoint (e.g. 
+[BlueOS Extensions](https://blueos.cloud/docs/latest/development/extensions/#web-interface-http-server)) 
+can provide one or more URLs for Cockpit to automatically detect and present as External IFrame widgets:
+
+{{ easy_image(src="external-widget-example", width=200) }}
+
+The `register_service` endpoint should include a `"cockpit"` key in its `"extras"` dictionary, pointing to
+an endpoint listing the available widgets:
+
+`/register_service`
+```json
+{
+   ...
+   "extras":{
+      "cockpit":"/cockpit_extras.json"
+   }
+}
+```
+
+The Cockpit-focused endpoint should including a name, version, iframe URL, and an optional URL for
+configuration of each widget:
+
+`cockpit_extras.json`
+```json
+{
+   "target_system":"Cockpit",
+   "target_cockpit_api_version":"1.0.0",
+   "widgets":[
+      {
+         "name":"ExternalWidgetName",
+         "config_iframe_url":null,
+         "iframe_url":"/path/to/widget/page",
+         "version":"1.3.8"
+      }
+   ]
+}
+```
+
+If no configuration URL is provided, the standard [IFrame Widget](#iframe) configuration options apply.
+
 ##### Image Viewer
 
 The image viewer widget shows an image that is accessible to the control station computer via its network.
