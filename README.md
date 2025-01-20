@@ -1,6 +1,8 @@
 # Overview
 
-This repository documents the Blue Robotics' [Cockpit](https://blueos.cloud/cockpit/docs/) software.
+This repository documents the Blue Robotics' [Cockpit](https://blueos.cloud/cockpit/docs/) software:
+
+[![docs-preview](docs-preview.png)](https://blueos.cloud/cockpit/docs/)
 
 The documentation is generated using the [Zola](https://www.getzola.org/) static site generator, together with [BlueTheme](https://github.com/bluerobotics/bluetheme).
 
