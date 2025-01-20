@@ -1,7 +1,7 @@
 +++
 title = "Advanced Usage"
 description = "Cockpit advanced usage documentation."
-date = 2025-01-08T19:05:00+11:00
+date = 2025-01-21T06:25:00+11:00
 template = "docs/page.html"
 sort_by = "weight"
 weight = 30
@@ -26,22 +26,22 @@ top = false
 
 Cockpit's main interface consists of three main components:
 1. A central region, for regular [widgets](#widgets)
-1. Mini-widget containers, including the header and footer bars
+1. Mini-widget containers, including the top and bottom bars
 1. A sidebar menu icon
    - Normally a sidebar tab arrow on the left
    - Can be configured as a burger menu in the top left corner
 
-### Header Bar
+### Top Bar
 
-The header bar is consistent across [Views](#views), and is usually used for displaying
+The top bar is consistent across [Views](#views), and is usually used for displaying
 [mission information](#mission-information) mini-widgets and 
 [connection statuses](#connection-statuses).
 
 During operation, it can be toggled between hidden and shown using a [Cockpit Action](#cockpit-actions-1).
 
-### Footer Bar
+### Bottom Bar
 
-The footer bar is unique to each View, and is generally used to display [indicators](#very-generic-indicators)
+The bottom bar is unique to each View, and is generally used to display [indicators](#very-generic-indicators)
 of various kinds, along with [vehicle status controllers](#vehicle-status-controllers) and
 [interface controls](#interface-controls).
 
@@ -198,9 +198,9 @@ export the desired view(s) from one and import them into the other(s).
 {{ easy_image(src="view-manager", width=300, center=true) }}
 - Select a view to edit, and/or create, hide/show, or remove views as desired
     - Views can be imported from an external file, or exported to a file for sharing
-    - Clicking on the cog settings icon allows renaming a view, and determining whether the footer bar is
+    - Clicking on the cog settings icon allows renaming a view, and determining whether the bottom bar is
       shown or hidden/docked when Cockpit boots
-        - It is always possible to toggle the current footer bar visibility using
+        - It is always possible to toggle the current bottom bar visibility using
           [Cockpit Actions](#cockpit-actions) (e.g. via a joystick button)
 {{ easy_image(src="view-config", width=400, center=true) }}
 - The "Widgets in View" list allows
@@ -213,9 +213,9 @@ export the desired view(s) from one and import them into the other(s).
 - New widgets can be added via the bottom section
     - Dragging a regular widget card into the main display area adds it to the View, after which it can be 
       positioned and resized as desired
-    - Mini widgets have fixed sizes, but can be dragged and dropped into the desired location in the header/footer
+    - Mini widgets have fixed sizes, but can be dragged and dropped into the desired location in the top/bottom
       bars or in a custom [container widget](#container-widgets)
-        - The header bar is shared between Views, and the bottom bar is unique to each View
+        - The top bar is shared between Views, and the bottom bar is unique to each View
     - The selector in the bottom left can be used to choose between editing regular, mini, or input widgets
 - Some widgets can be configured, by clicking the cog settings icon in the "Widgets in View" list
     - [There are currently cog icons for all widgets](https://github.com/bluerobotics/cockpit/issues/541),
@@ -228,9 +228,9 @@ There are several types of widgets available, including different displays of th
    - They can only be located in the main display area
    - Their positions and sizes snap to the [Profile alignment grid](#profile-configuration), if it is enabled
 - **Mini Widgets** are small (usually text-based) indicators and buttons
-   - They can be in the shared header bar, or in the View-specific footer bar or a [container widget](#container-widgets)
+   - They can be in the shared top bar, or in the View-specific bottom bar or a [container widget](#container-widgets)
 - [**Input Widgets**](#input-widgets) are like mini-widgets dedicated for custom user inputs / commands
-   - They can be in the shared header bar, or in the View-specific footer bar or a [container widget](#container-widgets)
+   - They can be in the shared top bar, or in the View-specific bottom bar or a [container widget](#container-widgets)
 
 <br>
 {{ easy_image(src="widgets-variety", width=650) }}
