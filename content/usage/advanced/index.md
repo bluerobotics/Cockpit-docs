@@ -37,6 +37,8 @@ The header bar is consistent across [Views](#views), and is usually used for dis
 [mission information](#mission-information) mini-widgets and 
 [connection statuses](#connection-statuses).
 
+During operation, it can be toggled between hidden and shown using a [Cockpit Action](#cockpit-actions-1).
+
 ### Footer Bar
 
 The footer bar is unique to each View, and is generally used to display [indicators](#very-generic-indicators)
@@ -930,6 +932,7 @@ There are some predefined Actions built into Cockpit for convenience, including:
 - `go_to_next_view`
 - `go_to_previous_view`
 - `toggle_bottom_bar`
+- `toggle_top_bar`
 - `toggle_full_screen`
 - `hold_to_confirm`
 - `start_recording_all_streams`
