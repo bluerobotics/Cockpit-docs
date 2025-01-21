@@ -462,15 +462,15 @@ There are buttons
 [Mission Planning](#mission-planning) is documented in a dedicated section.
 {% end %}
 
-Configuration allows showing or hiding a trail of the vehicle's path over time.
+Configuration allows showing or hiding a trail of the vehicle's path over time:
 
 {{ easy_image(src="map-config", width=250, center=true) }}
 
 For vehicles with a supporting autopilot firmware and valid position estimate it is also possible to guide
 the vehicle to a new position via GoTo commands (which can be sent by clicking a target location on the map,
-and clicking the GoTo button).
+and clicking the GoTo option), and setting the [default map position](#default-map-position):
 
-{{ easy_image(src="goto", width=100, center=true) }}
+{{ easy_image(src="map-click-options", width=200, center=true) }}
 
 It is [not currently possible](https://github.com/bluerobotics/cockpit/issues/1513) to manually specify the
 vehicle's current position, GPS origin, or home location.
@@ -920,6 +920,14 @@ If you want a similar feature for joystick button functions, consider assigning 
 [modifier-based slot](#modifier-keys), to require a modifier key to be held down before the function
 can be triggered.
 {% end %}
+
+#### Default Map Position
+
+For convenience, it is possible to persistently set the default map position and zoom level:
+
+{{ easy_image(src="default-map-position", width=500) }}
+
+This can be useful before a specific mission, or just to get the map to start near typical operating regions.
 
 ### Cockpit Actions
 
