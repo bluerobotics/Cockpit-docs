@@ -634,11 +634,20 @@ characteristics:
 {{ easy_image(src="plotter-config", width=400, center=true) }}
 
 {% note() %}
-The data lake which the widget gets its data from by default only provides access to the Cockpit memory
-usage, and values added from [Custom Actions](#custom-actions). It will soon be connected to the
-MAVLink message fields as well, and other options available to
-[Very Generic Indicators](#very-generic-indicators).
+The data lake which the widget gets its data from by default provides access to the Cockpit memory
+usage, MAVLink message fields, and values added from [Custom Actions](#custom-actions). It will soon be 
+connected to the BlueOS-specific options available to
+[Very Generic Indicators](#very-generic-indicators) as well.
 {% end %}
+
+#### Do It Yourself Widget
+
+- Completely custom elements, code logic, and styling
+{{ easy_image(src="diy-widget-config", width=550, center=true) }}
+- Runs code automatically when Cockpit starts/refreshes
+   - Unlike [Custom Actions](#custom-actions), which need to be triggered to run
+- Can listen to, create, and modify data lake variables, and register and/or execute Actions using the
+  Cockpit API (`window.cockpit.*`)
 
 #### Container Widgets
 
