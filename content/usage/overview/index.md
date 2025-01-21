@@ -1,7 +1,7 @@
 +++
 title = "Overview"
 description = "Cockpit overview."
-date = 2025-01-08T21:30:00+11:00
+date = 2025-01-22T00:45:00+11:00
 template = "docs/page.html"
 sort_by = "weight"
 weight = 0
@@ -52,6 +52,7 @@ It is currently available as:
 - Browser-based control station software, for vehicle control and monitoring from any web-capable device
 - [Widget](../advanced/#widgets)-based layout system, with freeform positioning and resizing
     - Widgets can display generic input, including custom MAVLink `NAMED_VALUE_FLOAT`/`_INT` messages
+    - [Externally provided widgets](../advanced/#automatic-external-iframes) can be detected and included automatically
 - Custom display [Views](../advanced/#views), for interface pages/profiles that can be switched between
     - Different browser windows/screens/devices can independently select which view to display
     - Views are downloadable and can be shared (json contains name and list of components and widget settings)
@@ -63,6 +64,9 @@ It is currently available as:
     - Provides position tracking and guiding
     - Allows [planning](../advanced/#mission-planning) (and saving/loading) autonomous missions
     - Allows mission control
+- [Do It Yourself widget](../advanced/do-it-yourself-widget)
+    - Provides complete control over the widget contents, styling, and functionality
+    - Integrates with Cockpit's data lake, and Actions system
 - Versatile [Actions system](../advanced/#cockpit-actions-1), mappable to user inputs through joystick actions and
   on-screen elements
     - Actions can send commands to the vehicle, or trigger local events like view switching and starting video recording
