@@ -1,7 +1,7 @@
 +++
 title = "Advanced Usage"
 description = "Cockpit advanced usage documentation."
-date = 2025-01-21T06:25:00+11:00
+date = 2025-01-22T01:00:00+11:00
 template = "docs/page.html"
 sort_by = "weight"
 weight = 30
@@ -676,10 +676,10 @@ Input widgets should be placed in a [container widget](#container-widgets), and 
 clicking on them when in [Edit Mode](#edit-mode).
 
 While other widgets generally have predefined behaviour, these are specifically designed to trigger and
-set variables for use as parameters in [Custom HTTP Actions](#custom-actions).
+set variables for use as parameters in [Custom Actions](#custom-actions).
 
 ##### Action Buttons
-Buttons can trigger a specified Action (currently only [Custom HTTP Actions](#custom-actions)) when pressed.
+Buttons can trigger a specified Action when pressed.
 {{ easy_image(src="button-input", width=120, center=true) }}
 {{ easy_image(src="button-input-config", width=250, center=true) }}
 
