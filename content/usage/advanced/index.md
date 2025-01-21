@@ -631,7 +631,10 @@ The plotter widget allows plotting data on a graph:
 
 Configuration options are provided for selecting the variables to plot, and modifying basic appearance
 characteristics:
-{{ easy_image(src="plotter-config", width=400, center=true) }}
+{{ easy_image(src="plotter-config", width=450, center=true) }}
+
+It is possible to change the decimal resolution of the displayed statistics, and the limit the number
+of plotted samples to improve visibility and performance.
 
 {% note() %}
 The data lake which the widget gets its data from by default provides access to the Cockpit memory
