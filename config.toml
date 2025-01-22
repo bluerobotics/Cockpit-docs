@@ -39,3 +39,7 @@ url = "https://github.com/bluerobotics/Cockpit?tab=AGPL-3.0-3-ov-file"
 [[extra.license]]
 name = "Cockpit Custom"
 url = "https://github.com/bluerobotics/Cockpit?tab=License-2-ov-file"
+
+[extra.palette]
+primary = "156.71 34.98% 47.65%"
+secondary = "209.17 79.12% 35.69%"
