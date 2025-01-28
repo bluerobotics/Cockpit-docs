@@ -14,15 +14,15 @@ top = false
 
 ## BlueOS Extension
 
-For vehicles with an [Onboard Computer](https://blueos.cloud/docs/hardware/required/onboard-computer/index.md) running [BlueOS](https://blueos.cloud/docs/blueos),
-and an IP-based (wifi / ethernet tether) connection to the [Control Station Computer](https://blueos.cloud/docs/hardware/required/control-computer/index.md),
+For vehicles with an [Onboard Computer](https://blueos.cloud/docs/stable/integrations/hardware/required/onboard-computer/) running [BlueOS](https://blueos.cloud/docs/),
+and an IP-based (wifi / ethernet tether) connection to the [Control Station Computer](https://blueos.cloud/docs/stable/integrations/hardware/required/control-computer/),
 Cockpit [is available](https://docs.bluerobotics.com/BlueOS-Extensions-Repository/#:~:text=Cockpit,-Maintainer)
-as a [BlueOS Extension](https://blueos.cloud/docs/blueos/latest/extensions).
+as a [BlueOS Extension](https://blueos.cloud/docs/stable/development/extensions/).
 
 ### Extension Updates
 
 Once installed, updating to a new Cockpit version can be done via the "Installed" tab of the BlueOS
-[Extensions Manager](https://blueos.cloud/docs/blueos/latest/advanced-usage/#extensions-manager).
+[Extensions Manager](https://blueos.cloud/docs/stable/usage/advanced/#extensions-manager).
 
 
 ## Self-Contained Application
