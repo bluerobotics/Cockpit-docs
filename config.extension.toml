@@ -1,0 +1,49 @@
+# The URL the site will be built for
+base_url = "/docs/Cockpit-latest"
+title = "Cockpit latest"
+
+# The site theme to use.
+theme = "bluetheme"
+
+# The default language; used in feeds and search index
+default_language="en"
+
+# Whether to automatically compile all Sass files in the sass directory
+compile_sass = true
+
+# Whether to build a search index to be used later on by a JavaScript library
+build_search_index = true
+
+[search]
+# Whether to include the title of the page/section in the index
+include_title = true
+# Whether to include the description of the page/section in the index
+include_description = false
+# Whether to include the path of the page/section in the index
+include_path = true
+# Whether to include the rendered content of the page/section in the index
+include_content = true
+
+[markdown]
+# Whether to do syntax highlighting
+# Theme can be customised by setting the `highlight_theme` variable to a theme supported by Zola
+highlight_code = true
+
+[extra]
+# Docs BlueOS extension manages software versions at root docs path
+version_choices = "/docs/data.json"
+
+[extra.logo]
+image_source = "https://blueos.cloud/assets/img/cockpit-logo-white.png"
+
+[[extra.license]]
+name = "AGPLv3"
+url = "https://github.com/bluerobotics/Cockpit?tab=AGPL-3.0-3-ov-file"
+
+[[extra.license]]
+name = "Cockpit Custom"
+url = "https://github.com/bluerobotics/Cockpit?tab=License-2-ov-file"
+
+[extra.palette]
+primary = "156.71 34.98% 47.65%"
+secondary = "209.17 79.12% 35.69%"
