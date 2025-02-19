@@ -33,9 +33,6 @@ highlight_code = true
 # Docs BlueOS extension manages software versions at root docs path
 version_choices = "/docs/data.json"
 
-[extra.logo]
-image_source = "https://blueos.cloud/assets/img/cockpit-logo-white.png"
-
 [[extra.license]]
 name = "AGPLv3"
 url = "https://github.com/bluerobotics/Cockpit?tab=AGPL-3.0-3-ov-file"
