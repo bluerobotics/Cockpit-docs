@@ -568,7 +568,7 @@ Configuration determines the URL to fetch the page from, as well as the overall 
 
 ###### Automatic External IFrames
 
-HTTP Servers that provide a `register_service` endpoint (e.g. 
+As of BlueOS 1.4, HTTP Servers that provide a `register_service` endpoint (e.g. 
 [BlueOS Extensions](https://blueos.cloud/docs/latest/development/extensions/#web-interface-http-server)) 
 can provide one or more URLs for Cockpit to automatically detect and present as External IFrame widgets:
 
