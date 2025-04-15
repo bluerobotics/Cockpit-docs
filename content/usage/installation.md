@@ -65,7 +65,7 @@ async function fetchLatestReleaseInfo() {
   
   const response = await fetch(url)
   if (!response.ok) {
-    throw new Error(`Failed to fetch latest release info: ${reponse.statusText}`)
+    throw new Error(`Failed to fetch latest release info: ${response.statusText}`)
   }
 
   const info = await response.json()
