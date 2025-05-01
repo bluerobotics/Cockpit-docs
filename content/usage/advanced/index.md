@@ -71,7 +71,16 @@ resume access to the underlying browser / operating system interface.
 
 {{ easy_image(src="exit-fullscreen", width=100) }}
 
-#### Settings
+#### Tools Menu
+
+Cockpit's tools provide access to and control over communication messages with the vehicle, and Cockpit's
+internal data management system:
+
+{{ easy_image(src="tools-menu", width=100) }}
+
+The available tools are [covered in a dedicated section](#tools) below.
+
+#### Settings Menu
 
 Cockpit's settings control how the application behaves and communicates, including, what data sources it's
 connected to, and how and where it processes and outputs commands and data (including recordings and logs):
@@ -713,6 +722,27 @@ with Label widgets:
 {{ easy_image(src="label-input", width=100, center=true) }}
 {{ easy_image(src="label-input-config", width=250, center=true) }}
 
+## Tools
+
+### MAVLink Inspection
+
+While it is possible to persistently monitor individual MAVLink message fields using
+[Very Generic Indicators](#very-generic-indicators) or [data plotting widgets](#data-plotting), the MAVLink inspector
+tab allows temporarily monitoring a small number of full MAVLink messages:
+
+{{ easy_image(src="mavlink-inspector", width=600) }}
+
+- Both incoming and outgoing message instances can be monitored
+- Pressing "Reset" clears the currently monitored messages
+
+{% note() %}
+It may be possible to access more detailed MAVLink inspection and tracking interfaces through the software that is
+routing MAVLink messages to Cockpit. BlueOS includes a built in 
+[MAVLink Inspector](https://blueos.cloud/docs/latest/usage/advanced/#mavlink-inspector), and if [using MAVLink Server
+as the router](https://blueos.cloud/docs/latest/usage/advanced/#mavlink-endpoints) there is a detailed debugging 
+interface provided.
+{% end %}
+
 ## Behaviour Configuration
 
 Cockpit's behaviour can be configured via the [sidebar menu](#sidebar-menu), with the following tabs:
@@ -930,25 +960,6 @@ These features help with error tracking and troubleshooting, so in normal use ca
   developers to help debug issues
    - If system logs are disabled then messages are sent to the browser/application console instead, which may
      reduce performance
-
-### MAVLink Inspection
-
-While it is possible to persistently monitor individual MAVLink message fields using
-[Very Generic Indicators](#very-generic-indicators) or [data plotting widgets](#data-plotting), the MAVLink inspector
-tab allows temporarily monitoring a small number of full MAVLink messages:
-
-{{ easy_image(src="mavlink-inspector", width=600) }}
-
-- Both incoming and outgoing message instances can be monitored
-- Pressing "Reset" clears the currently monitored messages
-
-{% note() %}
-It may be possible to access more detailed MAVLink inspection and tracking interfaces through the software that is
-routing MAVLink messages to Cockpit. BlueOS includes a built in 
-[MAVLink Inspector](https://blueos.cloud/docs/latest/usage/advanced/#mavlink-inspector), and if [using MAVLink Server
-as the router](https://blueos.cloud/docs/latest/usage/advanced/#mavlink-endpoints) there is a detailed debugging 
-interface provided.
-{% end %}
 
 ### Missions and Safety
 
