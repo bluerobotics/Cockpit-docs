@@ -737,10 +737,9 @@ tab allows temporarily monitoring a small number of full MAVLink messages:
 
 {% note() %}
 It may be possible to access more detailed MAVLink inspection and tracking interfaces through the software that is
-routing MAVLink messages to Cockpit. BlueOS includes a built in 
-[MAVLink Inspector](https://blueos.cloud/docs/latest/usage/advanced/#mavlink-inspector), and if [using MAVLink Server
-as the router](https://blueos.cloud/docs/latest/usage/advanced/#mavlink-endpoints) there is a detailed debugging 
-interface provided.
+routing MAVLink messages to Cockpit. If
+[using MAVLink Server as the router](https://blueos.cloud/docs/latest/usage/advanced/#mavlink-endpoints) there is a
+detailed debugging interface provided.
 {% end %}
 
 ## Behaviour Configuration
