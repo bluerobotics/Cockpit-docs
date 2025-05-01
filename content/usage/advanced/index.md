@@ -1016,7 +1016,11 @@ There are some predefined Actions built into Cockpit for convenience, including:
 #### Custom Actions
 It is also possible to define (and export or import) your own custom Actions, with a few different approaches:
 
-{{ easy_image(src="custom-actions-config", width=500) }}
+{{ easy_image(src="custom-actions-config", width=600) }}
+
+{% note() %}
+The "Name" and "Type" headings in the table can be clicked on to choose the sort order.
+{% end %}
 
 - **MAVLink Message Actions** are the most confined, and allow sending arbitrary
   [MAVLink messages](https://mavlink.io/en/messages/common.html) and
