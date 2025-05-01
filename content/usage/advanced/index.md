@@ -1038,6 +1038,9 @@ The "Name" and "Type" headings in the table can be clicked on to choose the sort
 {{ easy_image(src="custom-javascript-action", width=500, center=true) }}
 
 Existing custom Actions can be edited, run manually (to test them), exported, or deleted.
+They can also be linked to changing variables and/or time periods to trigger automatically:
+
+{{ easy_image(src="custom-action-triggers" width=400) }}
 
 {% note() %}
 More detailed breakdowns and examples will be coming in future.
