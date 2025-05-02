@@ -660,6 +660,7 @@ connected to the BlueOS-specific options available to
    - Unlike [Custom Actions](#custom-actions), which need to be triggered to run
 - Can listen to, create, and modify data lake variables, and register and/or execute Actions using the
   Cockpit API (`window.cockpit.*`)
+- Can be exported to or imported from a JSON file with `"html"`, `"css"`, and `"js"` string fields
 
 #### Container Widgets
 
