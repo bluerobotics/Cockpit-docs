@@ -657,7 +657,6 @@ connected to the BlueOS-specific options available to
 - Completely custom elements, code logic, and styling
 {{ easy_image(src="diy-widget-config", width=550, center=true) }}
 - Runs code automatically when Cockpit starts/refreshes
-   - Unlike [Custom Actions](#custom-actions), which need to be triggered to run
 - Can listen to, create, and modify data lake variables, and register and/or execute Actions using the
   Cockpit API (`window.cockpit.*`)
 - Can be exported to or imported from a JSON file with `"html"`, `"css"`, and `"js"` string fields
@@ -679,6 +678,11 @@ A collapsible, nameable, movable container widget, with a grid of internal posit
 
 {{ easy_image(src="custom-widget-base", width=250, center=true) }}
 {{ easy_image(src="custom-widget-config", width=350, center=true) }}
+
+Can be saved to or loaded from a file, or cloned to another View via the dropdown from the top right
+corner when in Edit Mode:
+
+{{ easy_image(src="custom-widget-management", width=200, center=true) }}
 
 #### Input Widgets
 
