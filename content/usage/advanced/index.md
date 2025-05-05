@@ -312,16 +312,30 @@ presenting the current state.
 {{ easy_image(src="flight-mode-mini-widget", width=150, center=true) }}
 
 #### Interface Controls
+
+While some interface controls (like changing Views) are available as [Cockpit Actions](#cockpit-actions)
+assigned to joystick button functions, it is sometimes convenient to modify the interface using on-screen
+components.
+
+##### Edit-Mode Quick Toggle
+
+[Edit Mode](#edit-mode) is normally accessed through the sidebar, but is also available using a
+mini-widget:
+
+{{ easy_image(src="edit-mode-mini-widget", width=35, center=true) }}
+
+##### Fullscreen Quick Toggle
+
+[Fullscreen display](#fullscreen-display) mode is normally accessed through the sidebar, but is also 
+available using a mini-widget:
+
+{{ easy_image(src="fullscreen-mini-widget", width=35, center=true) }}
+
 ##### View Selector
 
 The actively displayed [View](#views) is specified and can be switched between using the View selector
 mini-widget:
 {{ easy_image(src="view-selector", width=120, center=true) }}
-
-{% note() %}
-It is also possible to switch Views using [Cockpit Actions](#cockpit-actions) assigned to joystick
-button functions.
-{% end %}
 
 #### Very Generic Indicators
 {{ easy_image(src="very-generic-widget", width=100, center=true) }}
