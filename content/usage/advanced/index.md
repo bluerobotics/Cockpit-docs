@@ -840,7 +840,7 @@ default each joystick can provide up to 32 axis ranges and 32 buttons.
 
 #### Joystick Protocols
 
-When mapping the functionality of a joystick button or axis, there are multiple protocols to choose from:
+When mapping the functionality of a joystick button or axis, there are multiple protocols to choose from, which can be mixed and matched across different buttons and axes:
 
 {{ easy_image(src="joystick-protocols", width=500, center=true) }}
 {{ easy_image(src="joystick-axis-mapping", width=500, center=true) }}
@@ -867,9 +867,7 @@ the last joystick input it received before losing access to the joystick.
 is operating near.
 {% end %}
 
-Button functions are determined by the autopilot firmware - e.g. in ArduSub they correspond to
-[`BTNn_FUNCTION`](https://docs.bluerobotics.com/ardusub-zola/software/autopilot/ArduSub-4.1/developers/parameters/#btnn-function-function-for-button)
-parameter values.
+Button functions are [determined by the autopilot firmware](https://ardupilot.org/sub/docs/buttons.html).
 
 As a few caveats:
 - ArduSub <= 4.1.x only supports 16 independent buttons and 4 axis ranges in its `MANUAL_CONTROL` handling
@@ -903,6 +901,8 @@ sending a single MAVLink message. These options can be provided (or defined) usi
 
 When it is useful for the button state to represent a value within some other functionality, the button can
 be configured to control a numeric or boolean variable within Cockpit's [data-lake system](#data-lake).
+Relevant variables can be created as part of [Input Widget](#input-widgets) configuration, or by adding a new
+persistent variable in the data lake. 
 
 Variables which are sourced externally (e.g. MAVLink message fields, and Cockpit usage statistics), as well
 as compound variables, which depend on other variables, cannot be overwritten by the joystick, so are filtered
