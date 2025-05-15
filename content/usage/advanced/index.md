@@ -340,17 +340,8 @@ mini-widget:
 #### Very Generic Indicators
 {{ easy_image(src="very-generic-widget", width=100, center=true) }}
 
-These are versatile mini-widgets that can be configured to track almost any information Cockpit receives
-from the vehicle, including:
-1. any variable that is inside a [MAVLink message](https://mavlink.io/en/messages/)
-   - messages with an ID field are separated into different instances per ID
-   - [`NAMED_VALUE_FLOAT/INT`](https://mavlink.io/en/messages/common.html#NAMED_VALUE_FLOAT) messages are
-     split by name, **including showing custom ones** (Cockpit does not need to know these names in advance)
-   - only messages from ArduPilot vehicles are currently known about / supported
-      - e.g. those from the [common](https://mavlink.io/en/messages/common.html) or
-        [ardupilotmega](https://mavlink.io/en/messages/ardupilotmega.html) message sets
-1. select information from the onboard computer
-   - e.g. `blueos/cpu/tempC` for the BlueOS CPU temperature
+These are versatile mini-widgets that can be configured to track [data-lake variables](#data-lake),
+which covers almost any information Cockpit has access to.
 
 For configuration convenience, several pre-made presets are available for usage with common variables:
 {{ easy_image(src="very-generic-widget-config-presets", width=300, center=true) }}
@@ -528,6 +519,9 @@ the cause of the problem:
 
 {{ easy_image(src="video-widget-stats", width=170, center=true) }}
 
+These statistics are also available through the [data-lake](#data-lake), and can be [plotted](#data-plotting)
+for monitoring/analysis outside of the video widget if desired.
+
 ##### WebRTC Video Recorder
 It is possible to directly record an incoming WebRTC video stream (not the scaled and cropped/flipped/rotated
 display of the widget):
@@ -652,27 +646,20 @@ self-replacing mjpeg like from an ESP32-Cam. It could also display images hosted
 The plotter widget allows plotting data on a graph:
 {{ easy_image(src="plotter-widget", width=300, center=true) }}
 
-Configuration options are provided for selecting the variables to plot, and modifying basic appearance
-characteristics:
+Configuration options are provided for selecting the [data-lake variable](#data-lake) to plot, and 
+modifying basic appearance characteristics:
 {{ easy_image(src="plotter-config", width=450, center=true) }}
 
 It is possible to change the decimal resolution of the displayed statistics, and the limit the number
 of plotted samples to improve visibility and performance.
-
-{% note() %}
-The data lake which the widget gets its data from by default provides access to the Cockpit memory
-usage, MAVLink message fields, and values added from [Custom Actions](#custom-actions). It will soon be 
-connected to the BlueOS-specific options available to
-[Very Generic Indicators](#very-generic-indicators) as well.
-{% end %}
 
 #### Do It Yourself Widget
 
 - Completely custom elements, code logic, and styling
 {{ easy_image(src="diy-widget-config", width=550, center=true) }}
 - Runs code automatically when Cockpit starts/refreshes
-- Can listen to, create, and modify data lake variables, and register and/or execute Actions using the
-  Cockpit API (`window.cockpit.*`)
+- Can listen to, create, and modify [data-lake variables](#data-lake), and register and/or execute Actions
+using the Cockpit API (`window.cockpit.*`)
 - Can be exported to or imported from a JSON file with `"html"`, `"css"`, and `"js"` string fields
 
 #### Container Widgets
@@ -760,6 +747,37 @@ routing MAVLink messages to Cockpit. If
 [using MAVLink Server as the router](https://blueos.cloud/docs/latest/usage/advanced/#mavlink-endpoints) there is a
 detailed debugging interface provided.
 {% end %}
+
+### Data Lake
+
+Cockpit's data lake is an accessible data management and storage system.
+
+It is designed to expose Cockpit's internals to the interface (including [displaying](#very-generic-indicators)
+and [plotting](#data-plotting)), and for use in user-defined functions (through [custom widgets](#do-it-yourself-widget)
+and [custom Actions](#custom-actions)).
+
+The data lake:
+- Includes information about Cockpit, the vehicle, video streams, MAVLink telemetry, and widget and Action internals
+   - Variable IDs can be copied with the icon left of the name, and referenced elsewhere surrounded by double braces
+   (e.g. `{{ data-lake-variable-id }}`)
+   - [MAVLink messages](https://mavlink.io/en/messages/) are split into variables for easier tracking
+      - only messages from ArduPilot vehicles are currently known about / supported
+         - e.g. those from the [common](https://mavlink.io/en/messages/common.html) or
+           [ardupilotmega](https://mavlink.io/en/messages/ardupilotmega.html) message sets
+      - [`NAMED_VALUE_FLOAT/INT`](https://mavlink.io/en/messages/common.html#NAMED_VALUE_FLOAT) messages are
+        split by name, **including showing custom ones** (Cockpit does not need to know these names in advance)
+      - messages with an ID field are [**not currently separated**](https://github.com/bluerobotics/cockpit/issues/1867)
+        into instances
+{{ easy_image(src="data-lake-overview", width=600, center=true) }}
+- Supports defining custom variables
+   - These can be [set using joystick buttons](#data-lake-variables)
+{{ easy_image(src="data-lake-custom-variable", width=450, center=true) }}
+- Allows defining compound variables, which are computations based on and/or combining other variables
+   - The "Expression" is the body of a JavaScript function, so supports
+   [operators](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Expressions_and_operators) for maths,
+   [conditionals](https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Scripting/Conditionals),
+   and other advanced functionalities
+{{ easy_image(src="data-lake-compound-variable", width=450, center=true) }}
 
 ## Behaviour Configuration
 
@@ -880,6 +898,15 @@ is raised to notify that the configured mapping is not fully as designed.
 Joystick buttons can also be configured to run more general functionalities, like modifying the interface or
 sending a single MAVLink message. These options can be provided (or defined) using
 [Cockpit's Action system](#cockpit-actions-1).
+
+##### Data Lake Variables
+
+When it is useful for the button state to represent a value within some other functionality, the button can
+be configured to control a numeric or boolean variable within Cockpit's [data-lake system](#data-lake).
+
+Variables which are sourced externally (e.g. MAVLink message fields, and Cockpit usage statistics), as well
+as compound variables, which depend on other variables, cannot be overwritten by the joystick, so are filtered
+out of the available options.
 
 ##### Modifier Keys
 
@@ -1040,6 +1067,12 @@ It is also possible to define (and export or import) your own custom Actions, wi
 The "Name" and "Type" headings in the table can be clicked on to choose the sort order.
 {% end %}
 
+{% note() %}
+Action definitinos can make use of dynamic [Data Lake](#data-lake) variable values by referring to their IDs
+in double braces (e.g. `{{ data-lake-variable-id }}`). These can be modified during operation, most easily
+using [Input Widgets](#input-widgets) or [joystick buttons](#data-lake-variables).
+{% end %}
+
 - **MAVLink Message Actions** are the most confined, and allow sending arbitrary
   [MAVLink messages](https://mavlink.io/en/messages/common.html) and
   [commands](https://mavlink.io/en/messages/common.html#mav_commands) to the vehicle and any other
@@ -1048,8 +1081,6 @@ The "Name" and "Type" headings in the table can be clicked on to choose the sort
 - **HTTP Request Actions** can send arbitrary HTTP requests, including custom URL parameters, headers,
   and a JSON body
    - These are best for basic communication with arbitrary APIs
-   - Parameters that are defined using [Input Widgets](#input-widgets) can be easily modified during
-     operation
 {{ easy_image(src="custom-http-action", width=400, center=true) }}
 - **JavaScript Actions** are a blank canvas, with all the possibilities (but also the complexities) of
   programming your own functionalities
