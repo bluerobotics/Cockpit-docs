@@ -241,6 +241,10 @@ export the desired view(s) from one and import them into the other(s).
 - Some widgets can be configured, by clicking the cog settings icon in the "Widgets in View" list
     - [There are currently cog icons for all widgets](https://github.com/bluerobotics/cockpit/issues/541),
       so if you click a cog icon and nothing happens it means that widget is not configurable
+    - For quick access, widget configuration is also accessible by right clicking (long-pressing on touch devices)
+      them in the normal view, outside of edit mode 
+        - Includes a slider for opacity control
+{{ easy_image(src="widget-config", width=150, center=true) }}
 
 ### Widgets
 
