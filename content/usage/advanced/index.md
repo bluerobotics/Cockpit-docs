@@ -803,6 +803,9 @@ connect to a vehicle:
 {{ easy_image(src="general-config", width=400) }}
 
 - Create and switch the active [User](#users)
+- Manage the application settings directly, including saving, loading, and resetting configurations
+{{ easy_image(src="general-settings-manager" width=600) }}
+   {% warning() %}Invalid settings changes can break Cockpit, and stop it from loading correctly.{% end %}
 - Specify the primary network address to connect to the vehicle
 - Optionally override the autopilot / MAVLink router telemetry connection address
 - Optionally override the WebRTC media connection address, for video streaming
