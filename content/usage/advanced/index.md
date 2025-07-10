@@ -474,13 +474,15 @@ For vehicles with a positioning system, the map widget displays the
 the vehicle's path over time.
 
 There are buttons
-- in the bottom left to 
-   - move the map to follow the registered 'home' location
+- in the bottom right to 
+   - move the map to the registered 'home' location
       - this may move around if the control station computer is on a boat
+      - double click to track it
    - move the map to follow the vehicle's current position
+      - double click to track it
    - download the current mission from the vehicle, and display it on the map
    - run the mission that is on the vehicle
-- in the bottom right to zoom in and out, and 
+   - zoom in and out, and 
 - in the top right to
    - Switch between structured and satellite map views
    - Include [sea marks](https://wiki.openstreetmap.org/wiki/Seamarks/Seamark_Objects)
