@@ -1185,20 +1185,34 @@ Some alerts can be read aloud on arrival using text to speech technology, which 
 For vehicles with a position estimate, `Mission Planning` mode (in the sidebar) can be used to create basic
 autonomous missions, and load a mission from a file.
 
+### Mission Creation
+
 Planning can involve placing individual waypoints and generating basic surveys,
 including multiple survey regions with manually placed waypoints between them:
 
 {{ easy_image(src="mission-creation", width=200, center=true) }}
 {{ easy_image(src="mission-planning", width=600, center=true) }}
 
+Clicking on a waypoint allows fine adjustments of its position, and configuration of its reference frame:
+
+{{ easy_image(src="mission-waypoints", width=260, center=true) }}
+
 {% note() %}
 Waypoints are currently limited to basic motion targets, but will soon be able to trigger custom
 MAVLink commands and other actions.
 {% end %}
+
+Survey generation can be configured with different spacings and scan angles, along with how the waypoints
+should be generated. For generated paths, right-clicking on a survey polygon allows modifying its scan
+direction.
+
+### Mission Loading and Control
 
 Once the mission is ready it can be uploaded to the vehicle, or saved to a file for later, before exiting
 mission planning via the `Flight` button in the sidebar:
 
 {{ easy_image(src="mission-sidebar", width=150, center=true) }}
 
-Starting the mission is done using the play button in the bottom left corner of a [Map widget](#map).
+The mission can be started immediately by entering `AUTO` mode, or using the play button in the bottom right
+corner of a [Map widget](#map). If necessary, missions can be manually cleared from an autopilot using the
+bin icon at the bottom of the mission creation page.
