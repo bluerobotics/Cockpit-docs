@@ -99,13 +99,16 @@ different applications.
 
 ### Organisation
 
-{{ easy_image(src="users-profiles-views", width=500, center=true) }}
+<div style="padding-top:15px; padding-bottom:15px; text-align:center;">
+<img src="users-profiles-views.svg" alt="visual breakdown of users, profiles, and views" width=650>
+</div>
 
 Cockpit's interface consists of a configurable widget system, with
 
 0. [Users](#users)
     - for supporting different operators
     - can be added and switched between in [general configuration](#general)
+    - store application settings
 1. [Profiles](#profiles)
     - for supporting different vehicle types and/or operating modes
     - can be added/removed/duplicated, saved and loaded (to/from both the vehicle and the display device),
@@ -118,18 +121,25 @@ Cockpit's interface consists of a configurable widget system, with
     - for information display and vehicle control
     - can be added/removed, moved around, and resized
 
+Some information is stored at the top level in the application, although this is planned to be moved into
+and synchronised with individual Users in future.
+
 ### Users
 
-Users are more abstract than the interface, and are mostly helpful for the following situations:
+Users are more abstract than the interface, and each user contains an independent set of
+[Profiles](#profiles) and [joystick mappings](#joysticks), along with the connection configuration values
+and application settings.
+
+Users are mostly helpful for the following situations:
 1. Multiple vehicle operators who share a single control station computer (e.g. within an
-   organisation), and don't want to use the same configurations
+   organisation), and don't want to use the same configurations or custom functions
    - This can alternatively be achieved with [Profiles](#profiles), but having separate users
      provides a cleaner separation, and easier options to reset everything
 1. Multiple operators who share a single BlueOS-based vehicle, and each want to synchronise their
    own configuration with it
 
 For individuals with their own vehicles and control computers, it is generally fine to set a
-username once and then ignoring that the "user" level exists.
+username once and then ignore that the "user" level exists.
 
 Switching users is done through [`Settings / General`](#general):
 {{ easy_image(src="user-manager", width=500, center=true) }}
@@ -142,7 +152,9 @@ It is [not currently possible to delete users](https://github.com/bluerobotics/c
 
 ### Profiles
 
-A "profile" is a collection of [views](#views) that are relevant to a particular use-case or vehicle.
+A "profile" is a collection of [views](#views) that are relevant to a particular use-case or vehicle,
+together with any configured [custom widgets](#do-it-yourself-widget), [custom Actions](#custom-actions),
+and persistent [data-lake](#data-lake) variables.
 
 If one control station computer is used for multiple complex use-cases (which each require multiple 
 separate Views), then they can be separated into Profiles and the most relevant one can be switched
@@ -812,9 +824,11 @@ various [protocol functions](#joystick-protocols), which can send inputs and com
 trigger interface events.
 
 {% note() %}
-The default function mapping is selected based on the connected vehicle type, and Cockpit automatically
-synchronises function mappings to/from the [User](#users), but it is also possible to manually export 
-them as a file, and import them into another User or a different Cockpit instance/device.
+Cockpit provides three independent sets of function mappings, which are automatically selected between
+based on the connected vehicle type. Changes to a mapping are synchronised to/from the [User](#users),
+including changes to which vehicle type(s) a mapping gets selected for. It is also possible
+to manually export the function mappings as a file, and import them into another User or a different
+Cockpit instance/device.
 {% end %}
 
 Known joystick types have an interactive diagram for mapping button and axis functions visually:
