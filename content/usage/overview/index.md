@@ -71,6 +71,8 @@ It is currently available as:
   on-screen elements
     - Actions can send commands to the vehicle, or trigger local events like view switching and starting video recording
     - Includes support for simultaneous input from multiple sources (including multiple joysticks)
+- Accessible [Data Lake](../advanced/#data-lake), with variables covering internal state and received messages/telemetry
+    - Supports custom and compound variables, in powerful combinations
 - [Joysticks](../advanced/#joysticks) of _any_ type can be configured
     - Buttons and axes can be mapped to arbitrary Actions
 - [Notification system](../advanced/#alerts)
