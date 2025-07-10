@@ -91,6 +91,7 @@ It is currently available as:
 - [Discussion Forum](https://discuss.bluerobotics.com/c/bluerobotics-software/cockpit/91)
 - [Issues and Feature Requests](https://github.com/bluerobotics/cockpit/issues)
 - [Chat (Discord)](https://discord.gg/mFgvxhCDrv)
+    - Monthly developer calls
 
 ### Usage Introduction Video
 `Phil Parisi (October 2024) - Supported by Blue Robotics`
