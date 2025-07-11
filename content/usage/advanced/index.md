@@ -1024,6 +1024,7 @@ These features help with error tracking and troubleshooting, so in normal use ca
      a different device running Cockpit
 - **Usage statistics telemetry** can be automatically sent to the Cockpit development team to help identify and
   track common errors and performance issues across global Cockpit usage
+   - See the [Data Privacy](../privacy) page for more details
 - **System logging** creates [application logs](#system-application-logs) that can be checked or shared with
   developers to help debug issues
    - If system logs are disabled then messages are sent to the browser/application console instead, which may
