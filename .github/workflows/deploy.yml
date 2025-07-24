@@ -10,6 +10,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    if: ${{ github.event.pull_request.action != 'closed' }}
     steps:
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
@@ -18,8 +19,14 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
 
+      - name: Check trigger source
+        run: |
+          echo "BRANCH=${{ github.event.workflow_run.head_branch || github.ref_name }}" >> $GITHUB_ENV
+
       - name: Check out code
         uses: actions/checkout@v4
+        with:
+          ref: ${{ env.BRANCH }}
 
       - name: Run Zola
         uses: shalzz/zola-deploy-action@v0.19.2
@@ -27,6 +34,10 @@ jobs:
           BUILD_ONLY: true
 
       - name: Upload official docs
+        if: ${{ github.event_name != 'pull_request' }}
         run: |
-          aws s3 cp --recursive public s3://br-www-docs/cockpit/docs/${{ github.ref_name }}
+          # Delete the old docs (if they exist)
+          aws s3 rm --recursive s3://br-www-docs/cockpit/docs/${{ env.BRANCH }}
+          # Upload the new ones
+          aws s3 cp --recursive public s3://br-www-docs/cockpit/docs/${{ env.BRANCH }}
 
