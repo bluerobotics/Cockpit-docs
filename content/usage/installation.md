@@ -42,7 +42,7 @@ Download the latest version for your operating system here:
 | Windows | <a id="win-x64">Cockpit.exe</a> | Not available |
 | macOS[¹](#1) | <a id="mac-x86_64">Cockpit-Intel.dmg</a> | Not yet available, use x86_64 version |
 | iOS / iPadOS | N/A | use the BlueOS Extension in a browser |
-| Linux | <a id="linux-x86_64-AppImage">Cockpit-x86_64.AppImage</a><br><a id="linux-x86_64-flatpak">Cockpit-x86_64.flatpak</a> | <a id="linux-arm64-AppImage">Cockpit-arm64.AppImage</a><br><a id="linux-arm64-flatpak">Cockpit-arm64.flatpak</a> |
+| Linux[²](#2) | <a id="linux-x86_64-AppImage">Cockpit-x86_64.AppImage</a><br><a id="linux-x86_64-flatpak">Cockpit-x86_64.flatpak</a> | <a id="linux-arm64-AppImage">Cockpit-arm64.AppImage</a><br><a id="linux-arm64-flatpak">Cockpit-arm64.flatpak</a> |
 | Android | N/A | use the BlueOS Extension in a browser |
 {% end %}
 
@@ -52,6 +52,7 @@ or check the [releases](https://github.com/bluerobotics/cockpit/releases), for a
       right-clicking Cockpit in your Applications folder, selecting "Open", then choosing to "Open anyway" if prompted, or opening the security
       preferences and scrolling down to "Allow" opening if there is no prompt.
 
+[^2]: Steam Deck users are recommended to use at least `v.16.0-beta.13`, as versions before this were [incapable of recording vidoes](https://github.com/bluerobotics/cockpit/pull/1974), and had performance issues.
 
 ### Application Updates
 
