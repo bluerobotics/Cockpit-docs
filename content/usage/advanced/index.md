@@ -141,14 +141,16 @@ Users are mostly helpful for the following situations:
 For individuals with their own vehicles and control computers, it is generally fine to set a
 username once and then ignore that the "user" level exists.
 
-Switching users is done through [`Settings / General`](#general):
+Switching users is done through [`Settings / General > Manage Users`](#general):
+{{ easy_image(src="user-switcher", width=500, center=true) }}
+
+Turning on admin mode, in the bottom left corner, it is possible to add new users or delete
+existing ones:
+
 {{ easy_image(src="user-manager", width=500, center=true) }}
 
-Creating new users is possible by clicking the "Add New" button, and choosing a unique name.
-The new user copies the Profiles of the currently selected user (if one exists - otherwise
-it uses Cockpit's default profiles).
-
-It is [not currently possible to delete users](https://github.com/bluerobotics/cockpit/issues/1384).
+Users must have unique names, and creating a new user copies the Profiles of the currently selected
+user (if one exists - otherwise it uses Cockpit's default profiles).
 
 ### Profiles
 
