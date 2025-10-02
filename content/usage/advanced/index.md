@@ -581,6 +581,17 @@ convenient video playback:
 If a recording is ongoing, Cockpit will try to prevent the tab/application from closing, with a warning:
 {{ easy_image(src="video-recording-termination-warning", width=550, center=true) }}
 
+##### Snapshot Recorder
+The Snapshot mini-widget allows capturing the current frame from one or more WebRTC video streams, or the
+entire visible View (in the self-contained application) and saving them as timestamped image files with EXIF
+metadata specified for the vehicle's location and orientation:
+{{ easy_image(src="snapshot-mini-widget", width=230, center=true) }}
+
+Snapshots can be captured by clicking the button, or configured to trigger repeatedly with a timer:
+{{ easy_image(src="snapshot-config", width=350, center=true) }}
+
+The saved images can be accessed through the [Snapshot Library](#snapshot-library).
+
 ##### URL Video Player
 
 The URL video player widget displays a video from a URL. This is useful for testing IP cameras that are not
@@ -1134,6 +1145,10 @@ More detailed breakdowns and examples will be coming in future.
    - Selecting multiple files requires either switching to the relevant mode, or doing a long press on the
      first file in the batch, or selecting a set of individual files using `CTRL+Click` or `CMD+Click` (for macOS).
 {{ easy_image(src="video-recording-library", width=500, center=true) }}
+
+### Snapshot Library
+- Allows downloading and deleting [snapshots](#snapshot-recorder)
+{{ easy_image(src="snapshot-library", width=500, center=true) }}
 
 ### Telemetry Logs / Subtitle Files
 
