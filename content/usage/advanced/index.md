@@ -155,8 +155,8 @@ user (if one exists - otherwise it uses Cockpit's default profiles).
 ### Profiles
 
 A "profile" is a collection of [views](#views) that are relevant to a particular use-case or vehicle,
-together with any configured [custom widgets](#do-it-yourself-widget), [custom Actions](#custom-actions),
-and persistent [data-lake](#data-lake) variables.
+together with any configured [custom widgets](#do-it-yourself-diy-widget),
+[custom Actions](#custom-actions), and persistent [data-lake](#data-lake) variables.
 
 If one control station computer is used for multiple complex use-cases (which each require multiple 
 separate Views), then they can be separated into Profiles and the most relevant one can be switched
@@ -689,11 +689,15 @@ modifying basic appearance characteristics:
 It is possible to change the decimal resolution of the displayed statistics, and the limit the number
 of plotted samples to improve visibility and performance.
 
-#### Do It Yourself Widget
+#### Do It Yourself (DIY) Widget
 
 - Completely custom elements, code logic, and styling
 {{ easy_image(src="diy-widget-config", width=550, center=true) }}
 - Runs code automatically when Cockpit starts/refreshes
+- Can save and apply updates automatically (while editing), or be configured to only apply changes manually
+   - Auto-save should generally be disabled while editing JavaScript functionality, but can be convenient
+     while modifying a widget's visual interface / styling
+- Can inherit styles from the Cockpit interface, or use completely independent styles
 - Can listen to, create, and modify [data-lake variables](#data-lake), and register and/or execute Actions
 using the Cockpit API (`window.cockpit.*`)
 - Can be exported to or imported from a JSON file with `"html"`, `"css"`, and `"js"` string fields
@@ -789,8 +793,8 @@ detailed debugging interface provided.
 Cockpit's data lake is an accessible data management and storage system.
 
 It is designed to expose Cockpit's internals to the interface (including [displaying](#very-generic-indicators)
-and [plotting](#data-plotting)), and for use in user-defined functions (through [custom widgets](#do-it-yourself-widget)
-and [custom Actions](#custom-actions)).
+and [plotting](#data-plotting)), and for use in user-defined functions (through
+[custom widgets](#do-it-yourself-diy-widget) and [custom Actions](#custom-actions)).
 
 The data lake:
 - Includes information about Cockpit, the vehicle, video streams, MAVLink telemetry, and widget and Action internals
