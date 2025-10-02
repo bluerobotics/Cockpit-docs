@@ -329,6 +329,11 @@ presenting the current state.
 ##### Flight Mode
 {{ easy_image(src="flight-mode-mini-widget", width=150, center=true) }}
 
+##### EKF Status
+For help with understanding and debugging the autopilot's state estimates, the EKF status can be checked
+to see which estimates are undefined or uncertain:
+{{ easy_image(src="ekf-status-mini-widget", width=600, center=true) }}
+
 #### Interface Controls
 
 While some interface controls (like changing Views) are available as [Cockpit Actions](#cockpit-actions)
