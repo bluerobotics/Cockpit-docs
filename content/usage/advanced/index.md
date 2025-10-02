@@ -1101,6 +1101,7 @@ There are some predefined Actions built into Cockpit for convenience, including:
 - `hold_to_confirm`
 - `start_recording_all_streams`
 - `stop_recording_all_streams`
+- `toggle_recording_all_streams`
 - `mavlink_arm`
 - `mavlink_disarm`
 
