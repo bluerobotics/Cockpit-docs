@@ -306,12 +306,15 @@ The vehicle connection mini-widget provides a continuous indication:
 The joystick connection mini-widget indicates whether a joystick is disconnected, disabled, or connected:
 {{ easy_image(src="joystick-mini-widget", width=120, center=true) }}
 
-Clicking on the widget allows manually disabling the connection:
+Clicking on the widget allows manually disabling the joystick pipeline:
 {{ easy_image(src="joystick-config", width=300, center=true) }}
 
 which can be useful if multiple users are switching control of the vehicle between separate devices with
 Cockpit open, or to prevent a faulty joystick from sending errant commands without needing to physically
 disconnect or unpair it.
+
+The joystick pipeline is disabled by default if Cockpit detects another control station software sending
+joystick commands to the vehicle when it starts up.
 
 ##### GPS Connection Indicator
 For vehicles that use satellite positioning, the GPS connection mini-widget indicates the number of
@@ -854,16 +857,29 @@ Cockpit is intended to work with arbitrary joystick types, and allows mapping jo
 various [protocol functions](#joystick-protocols), which can send inputs and commands to the vehicle, or
 trigger interface events.
 
-{% note() %}
-Cockpit provides three independent sets of function mappings, which are automatically selected between
-based on the connected vehicle type. Changes to a mapping are synchronised to/from the [User](#users),
-including changes to which vehicle type(s) a mapping gets selected for. It is also possible
-to manually export the function mappings as a file, and import them into another User or a different
-Cockpit instance/device.
-{% end %}
+#### Function Mapping
+
+Cockpit provides three independent sets of function mappings, which are automatically pre-selected
+based on the connected vehicle type: 
+
+{{ easy_image(src="joystick-function-mapping", width=600, center=true) }}
+
+Non-active mappings can be previewed by clicking on them, and switched to by clicking the switch
+button that appears while previewing:
+
+{{ easy_image(src="joystick-mapping-switch", width=250, center=true) }}
+
+Changes to a mapping are synchronised to/from the [User](#users), including changes to 
+which vehicle type(s) a mapping gets selected for. It is also possible to manually export the function
+mappings as a file, and import them into another User or a different Cockpit instance/device.
+
+##### Buttons and Axes
 
 Known joystick types have an interactive diagram for mapping button and axis functions visually:
 {{ easy_image(src="joystick-button-mapping", width=600, center=true) }}
+
+Joysticks can be individually enabled/disabled from the toggle-switch under their name, or the entire
+joystick pipeline can be disabled via the [Joystick Connection Indicator](#joystick-connection-indicator).
 
 Button presses and axis movements should be mirrored on the diagram, and clicking on a button
 element in the diagram allows remapping its mapped function.
@@ -882,6 +898,21 @@ Buttons can be remapped to different Actions using the edit pencil at the far ri
 Support is built in for simultaneous input from multiple sources, including multiple joysticks, and by
 default each joystick can provide up to 32 axis ranges and 32 buttons.
 {% end %}
+
+#### Axis Calibration
+
+Axis calibration options are provided to improve control and compensate for joystick degradation:
+{{ easy_image(src="joystick-calibration", width=600, center=true) }}
+
+- Exponential scaling reduces the output change near the center of an axis, and increases it towards the edges
+   - Higher values can improve fine control at low thrust levels (e.g. slow speeds), at the expense of
+     less control fidelity at higher thrusts/speeds
+- Dead-bands zero-out inputs at the center
+   - This helps to avoid undesired input values when there is slop in the axis spring (i.e. "stick drift")
+   - The auto-calibration option allows wiggling the axis sticks in the region where the spring is not
+     engaging, to detect the zone the axes will return to when released
+   - Large dead-zones make fine control difficult, so if your joystick is suffering from signficant stick drift
+     it is a good idea to repair or replace it
 
 #### Joystick Protocols
 
