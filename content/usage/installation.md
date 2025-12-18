@@ -40,19 +40,15 @@ Download the latest version for your operating system here:
 | Operating System | x86_64 | arm64 |
 | --- | --- | --- |
 | Windows | <a id="win-x64">Cockpit.exe</a> | Not available |
-| macOS[¹](#1) | <a id="mac-x86_64">Cockpit-Intel.dmg</a> | Not yet available, use x86_64 version |
+| macOS | <a id="mac-x64">Cockpit-Intel.dmg</a> | <a id="mac-arm64">Cockpit-M-series.dmg</a> |
 | iOS / iPadOS | N/A | use the BlueOS Extension in a browser |
-| Linux[²](#2) | <a id="linux-x86_64-AppImage">Cockpit-x86_64.AppImage</a><br><a id="linux-x86_64-flatpak">Cockpit-x86_64.flatpak</a> | <a id="linux-arm64-AppImage">Cockpit-arm64.AppImage</a><br><a id="linux-arm64-flatpak">Cockpit-arm64.flatpak</a> |
+| Linux[¹](#1) | <a id="linux-x86_64-AppImage">Cockpit-x86_64.AppImage</a><br><a id="linux-x86_64-flatpak">Cockpit-x86_64.flatpak</a> | <a id="linux-arm64-AppImage">Cockpit-arm64.AppImage</a><br><a id="linux-arm64-flatpak">Cockpit-arm64.flatpak</a> |
 | Android | N/A | use the BlueOS Extension in a browser |
 {% end %}
 
 or check the [releases](https://github.com/bluerobotics/cockpit/releases), for a list of all available versions, and the main changes between them.
 
-[^1]: Cockpit is not yet registered with Apple, so may get flagged as a potential security threat. For now, the first open on macOS may require
-      right-clicking Cockpit in your Applications folder, selecting "Open", then choosing to "Open anyway" if prompted, or opening the security
-      preferences and scrolling down to "Allow" opening if there is no prompt.
-
-[^2]: Steam Deck users are recommended to use at least `v.16.0-beta.13`, as versions before this were [incapable of recording vidoes](https://github.com/bluerobotics/cockpit/pull/1974), and had performance issues.
+[^1]: Steam Deck users are recommended to use at least `v.16.0`, as versions before this were [incapable of recording vidoes](https://github.com/bluerobotics/cockpit/pull/1974), and had performance issues.
 
 ### Application Updates
 
@@ -92,7 +88,11 @@ async function setDownloadURLs() {
           setLinkURL("win-x64", artifact);
           break;
         case ".dmg":      // macOS
-          setLinkURL("mac-x86_64", artifact);
+          if (name.includes("x64")) {
+            setLinkURL("mac-x64", artifact);
+          } else if (name.includes("arm64")) {
+            setLinkURL("mac-arm64", artifact);
+          }
           break;
         case ".AppImage": // Linux (AppImage)
           if (name.includes("x86_64")) {
