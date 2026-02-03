@@ -1,7 +1,7 @@
 +++
 title = "Installation"
 description = "Cockpit installation instructions."
-date = 2024-12-30T04:30:00+11:00
+date = 2026-02-04T01:10:00+08:00
 template = "docs/page.html"
 sort_by = "weight"
 weight = 10
@@ -42,7 +42,8 @@ Download the latest version for your operating system here:
 | Windows | <a id="win-x64">Cockpit.exe</a> | Not available |
 | macOS | <a id="mac-x64">Cockpit-Intel.dmg</a> | <a id="mac-arm64">Cockpit-M-series.dmg</a> |
 | iOS / iPadOS | N/A | use the BlueOS Extension in a browser |
-| Linux[¹](#1) | <a id="linux-x86_64-AppImage">Cockpit-x86_64.AppImage</a><br><a id="linux-x86_64-flatpak">Cockpit-x86_64.flatpak</a> | <a id="linux-arm64-AppImage">Cockpit-arm64.AppImage</a><br><a id="linux-arm64-flatpak">Cockpit-arm64.flatpak</a> |
+| Steam Deck[¹](#1) | <a id="linux-x86_64-flatpak">Cockpit-x86_64.flatpak</a> | N/A |
+| Linux | <a id="linux-x86_64-AppImage">Cockpit-x86_64.AppImage</a> | <a id="linux-arm64-AppImage">Cockpit-arm64.AppImage</a> |
 | Android | N/A | use the BlueOS Extension in a browser |
 {% end %}
 
