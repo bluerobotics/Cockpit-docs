@@ -685,12 +685,12 @@ self-replacing mjpeg like from an ESP32-Cam. It could also display images hosted
 The plotter widget allows plotting data on a graph:
 {{ easy_image(src="plotter-widget", width=300, center=true) }}
 
-Configuration options are provided for selecting the [data-lake variable](#data-lake) to plot, and 
-modifying basic appearance characteristics:
+Configuration options are provided for selecting the [data-lake variable](#data-lake) to plot, some common
+statistics from the plotted data (and their decimal resolution), and basic appearance characteristics:
 {{ easy_image(src="plotter-config", width=450, center=true) }}
 
-It is possible to change the decimal resolution of the displayed statistics, and the limit the number
-of plotted samples to improve visibility and performance.
+It is also possible to control the number of plotted samples and the vertical range of the graph,
+to improve visibility and/or performance.
 
 #### Do It Yourself (DIY) Widget
 
