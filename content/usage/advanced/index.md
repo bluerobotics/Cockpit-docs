@@ -687,7 +687,7 @@ The plotter widget allows plotting data on a graph:
 
 Configuration options are provided for selecting the [data-lake variable](#data-lake) to plot, some common
 statistics from the plotted data (and their decimal resolution), and basic appearance characteristics:
-{{ easy_image(src="plotter-config", width=450, center=true) }}
+{{ easy_image(src="plotter-config", width=550, center=true) }}
 
 It is also possible to control the number of plotted samples and the vertical range of the graph,
 to improve visibility and/or performance.
