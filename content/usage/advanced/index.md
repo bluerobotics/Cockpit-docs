@@ -283,9 +283,10 @@ Hovering over the widget displays a scrollable history:
 {{ easy_image(src="alert-history", width=450, center=true) }}
 
 ##### Power/Battery Indicator
+For vehicles with power monitoring, the power indicator can show the live voltage level, and the instantaneous current or power draw (or alternating between both):
 {{ easy_image(src="power-mini-widget", width=80, center=true) }}
-Configuration allows choosing to display current or instantaneous power draw, or alternating between both
-{{ easy_image(src="power-config", width=250, center=true) }}
+Configuration allows choosing what to display, including dynamic widget colours with threshold voltages between them: 
+{{ easy_image(src="power-config", width=300, center=true) }}
 
 ##### Date and Time
 The current date and time can be displayed in a mini-widget:
