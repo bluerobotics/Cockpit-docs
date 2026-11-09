@@ -9,6 +9,9 @@ on:
 jobs:
   upload:
     runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+ 
     if: >
       github.event.workflow_run.event == 'pull_request' &&
       github.event.workflow_run.conclusion == 'success'
@@ -38,6 +41,7 @@ jobs:
       - name: Retrieve PR Number
         run: |
           echo "PR=$(cat pr/NR)" >> $GITHUB_ENV
+          echo "PREVIEW_URL='http://br-www-docs.s3-website-us-east-1.amazonaws.com/preview/cockpit/${{ env.PR }}'" >> $GITHUB_ENV
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
@@ -52,4 +56,18 @@ jobs:
           aws s3 rm --recursive s3://br-www-docs/preview/cockpit/${{ env.PR }}
           # Upload the new ones
           aws s3 cp --recursive public s3://br-www-docs/preview/cockpit/${{ env.PR }}
-          echo "Preview at http://br-www-docs.s3-website-us-east-1.amazonaws.com/preview/cockpit/${{ env.PR }}"
+          echo "Preview at ${{ env.PREVIEW_URL }}"
+
+      - name: Populate preview link in PR description
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_URL: ${{ github.event.pull_request.html_url }}
+        run: |
+          # Fetch the current PR description body
+          CURRENT_BODY=$(gh pr view "$PR_URL" --json body --jq '.body')
+
+          # Populate the preview URL
+          NEW_BODY="${CURRENT_BODY//<PREVIEW_URL>/${{ env.PREVIEW_URL }}}"
+
+          # Push the updated description back to GitHub
+          gh pr edit "$PR_URL" --body "$NEW_BODY"
