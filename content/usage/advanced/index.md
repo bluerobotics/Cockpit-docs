@@ -288,6 +288,9 @@ For vehicles with power monitoring, the power indicator can show the live voltag
 Configuration allows choosing what to display, including dynamic widget colours with threshold voltages between them: 
 {{ easy_image(src="power-config", width=300, center=true) }}
 
+The icon also displays the remaining battery proportion, for systems that provide an estimate of it (e.g. ArduPilot autopilots with a [non-zero `BATT_CAPACITY`](https://discuss.bluerobotics.com/t/autopilot-on-bluerov-not-sending-battery-info/13224/2)):
+{{ easy_image(src="power-mini-widget-capacity", width=250, center=true) }}
+
 ##### Date and Time
 The current date and time can be displayed in a mini-widget:
 {{ easy_image(src="clock-mini-widget", width=150, center=true) }}
