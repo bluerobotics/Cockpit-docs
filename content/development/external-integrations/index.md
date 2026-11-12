@@ -372,7 +372,7 @@ Each joystick profile tracks its own set of applied and ignored suggestions inde
             "urlParams": {},
             "body": "{\"action\":\"increase\"}"
          }
-      },
+      }
    ],
    "joystickSuggestions": [
       {
@@ -385,36 +385,36 @@ Each joystick profile tracks its own set of applied and ignored suggestions inde
                "actionProtocol": "cockpit-action",
                "actionId": "camera-focus-decrease",
                "actionName": "Camera Focus Decrease",
-               "modifier": "regular",
+               "modifierKey": "regular",
                "button": 6,
-               "description": "Decrease the focus of the camera",
+               "description": "Decrease the focus of the camera"
             },
             {
                "id": "mock-extension-joystick-focus-increase",
                "actionProtocol": "cockpit-action",
                "actionId": "camera-focus-increase",
                "actionName": "Camera Focus Increase",
-               "modifier": "regular",
+               "modifierKey": "regular",
                "button": 7,
-               "description": "Increase the focus of the camera",
+               "description": "Increase the focus of the camera"
             },
             {
                "id": "mock-extension-joystick-zoom-decrease",
                "actionProtocol": "cockpit-action",
                "actionId": "camera-zoom-decrease",
                "actionName": "Camera Zoom Decrease",
-               "modifier": "shift",
+               "modifierKey": "shift",
                "button": 6,
-               "description": "Decrease the zoom of the camera",
+               "description": "Decrease the zoom of the camera"
             },
             {
                "id": "mock-extension-joystick-zoom-increase",
                "actionProtocol": "cockpit-action",
                "actionId": "camera-zoom-increase",
                "actionName": "Camera Zoom Increase",
-               "modifier": "shift",
+               "modifierKey": "shift",
                "button": 7,
-               "description": "Increase the zoom of the camera",
+               "description": "Increase the zoom of the camera"
             }
          ]
       }
