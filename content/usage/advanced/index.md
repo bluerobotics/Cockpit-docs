@@ -276,11 +276,72 @@ While modifying the mission name it is possible to restore the previous name, in
 make a mistake.
 
 ##### Alerter
-The alerter mini-widget allows displaying Cockpit's [alerts](#alerts-1), along with their severity:
+The Alerter mini-widget shows Cockpit's [alerts](#alerts-1) one at a time and keeps a history of them, so
+you can follow what the vehicle and the application report while you operate. By default it sits in the
+centre of the top bar:
 {{ easy_image(src="alert-mini-widget", width=400, center=true) }}
 
-Hovering over the widget displays a scrollable history:
+The border of the widget takes the colour of the alert's level, so you can tell how serious an alert is
+before you read it:
+
+| Level | Colour | Typical alerts |
+| --- | --- | --- |
+| Critical | Red, blinking | Autopilot messages with a [`MAV_SEVERITY`](https://mavlink.io/en/messages/common.html#MAV_SEVERITY) of `EMERGENCY`, `ALERT` or `CRITICAL`, and the vehicle leaving its geofence |
+| Error | Red | Autopilot `ERROR` messages, and failures such as "Vehicle disconnected" |
+| Warning | Orange | Autopilot `WARNING` and `NOTICE` messages |
+| Info | Blue | Autopilot `INFO` and `DEBUG` messages, and routine events such as "Vehicle armed" |
+| Success | Green | Confirmations that something worked, such as "Vehicle connected" |
+
+Each alert stays on the widget for as long as it takes to read it aloud, even when voice alerts are off.
+The last alert then remains for about 10 seconds, and after that the widget shows "No recent alerts." in
+the Info colour.
+
+When several alerts are waiting, the widget shows the most severe first: Critical, then Error, then
+Warning, then Info and Success. Alerts of equal severity keep their order of arrival. The history lists
+every alert as soon as it arrives, so it can show an alert before the widget does.
+
+For the vehicle connection and the geofence, a newer alert replaces an older one that is still waiting.
+For example, if the vehicle reconnects before "Vehicle disconnected" has been shown, the widget shows only
+"Vehicle connected". The history keeps both.
+
+To review earlier alerts, hover over the widget. On a touch device, tap the widget to open the history and
+tap outside it to close it. A panel opens with the alert history, newest alert first. Each row shows the
+message, the time the alert arrived and its level:
 {{ easy_image(src="alert-history", width=450, center=true) }}
+
+In the history panel:
+- Critical, Error and Warning alerts are highlighted in their colour, so they are easy to find among
+  routine messages.
+- Scroll inside the panel to reach older alerts.
+- Long messages are shortened with "…", on the widget and in the history. To read one in full, hover over
+  its row in the history.
+- The panel opens below the widget when the widget is in the top half of the window, and above it when the
+  widget is in the bottom half, for example in the bottom bar.
+- The history covers the current session only. Cockpit does not keep it after you close or reload the
+  application.
+
+To keep the history open, click the strip with the lock icon, between the widget and the list of alerts.
+The panel then stays open when you move the pointer away, and it is open again the next time Cockpit
+starts. This helps when you need to monitor several alerts at once and cannot keep the pointer on the
+widget, for example while you pilot with a joystick. Click the strip again to unlock the panel, which then
+closes.
+
+In [Edit Mode](#edit-mode) the history panel is hidden, even when it is locked, so that it does not cover
+the interface you are arranging. It returns when you leave Edit Mode.
+
+To change the Alerter's options, right-click the widget (long-press on a touch device) and select
+"Options":
+{{ easy_image(src="alert-mini-widget-config", width=350, center=true) }}
+
+- **Enable color coded alerts** shows or hides the coloured border, the blinking of critical alerts and the
+  highlighted rows in the history. It is on by default and applies to this Alerter only.
+- **Enable voice alerts** turns voice alerts (alerts read aloud) on or off for all of Cockpit, not only for
+  this widget.
+- **Alert volume** sets how loud the voice is, from silent on the left to full volume on the right. While
+  you drag the slider, a label shows the value, from 0 to 1. It is available while voice alerts are on.
+
+The last two options are the same settings as in `Settings / Alerts`, where you can also choose which alert
+levels are read aloud. See the [Alerts settings](#alerts).
 
 ##### Power/Battery Indicator
 For vehicles with power monitoring, the power indicator can show the live voltage level, and the instantaneous current or power draw (or alternating between both):
@@ -294,10 +355,6 @@ The icon also displays the remaining battery proportion, for systems that provid
 ##### Date and Time
 The current date and time can be displayed in a mini-widget:
 {{ easy_image(src="clock-mini-widget", width=150, center=true) }}
-
-{% note() %}
-If the time is needed in seconds, see the [Alerter](#alerter).
-{% end %}
 
 #### Connection Statuses
 
@@ -1029,6 +1086,14 @@ Cockpit includes a variety of [alerts](#alerts-1) during operation, and provides
 (if any) should be read using text to speech technology:
 
 {{ easy_image(src="alert-config", width=500, center=true) }}
+
+The "Alerts volume" slider sets how loud the voice is, from silent on the left to full volume on the right.
+Full volume is the default. Lower it when alerts are frequent and the voice becomes tiring, for example
+during a long survey, so that you do not have to turn voice alerts off and risk missing a critical one. The
+slider is available while "Enable voice alerts" is on.
+
+"Enable voice alerts" and the volume are also in the options of the [Alerter](#alerter) mini-widget, so you
+can change them during operation without opening the settings.
 
 ### Development / Troubleshooting
 
