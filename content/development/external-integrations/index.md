@@ -421,3 +421,53 @@ Each joystick profile tracks its own set of applied and ignored suggestions inde
    ]
 }
 ```
+
+## Communicating from an iframe
+
+Pages shown in an iframe widget can talk to Cockpit with `window.parent.postMessage`. Cockpit only handles messages
+from the page its widget shows.
+
+### Reading data lake variables
+A page can subscribe to any [data lake](@/usage/advanced/index.md#data-lake) variable. Cockpit sends its current value
+right away, if it has one, and again on every change. Variables are read-only from an iframe.
+
+```js
+window.parent.postMessage({ type: 'cockpit:listenToDatalakeVariables', variable: '/mavlink/1/1/ATTITUDE/roll' }, '*')
+
+window.addEventListener('message', (event) => {
+  if (event.data.type === 'cockpit:datalakeVariable' && event.data.variable === '/mavlink/1/1/ATTITUDE/roll') {
+    console.log(event.data.value)
+  }
+})
+```
+
+The [`@bluerobotics/cockpit-api`](https://www.npmjs.com/package/@bluerobotics/cockpit-api) package wraps this as
+`listenToDatalakeVariable(variable, callback, maxRateHz)`, which also limits how often `callback` runs.
+
+### Points of interest and map overlays
+A page can also add points of interest and draw overlays on Cockpit's maps. Ids use lowercase letters, digits and
+dashes. Overlay ids are shared by every sender, so prefix them with your extension's name.
+
+| Message `type`                     | Fields                                                                                                    |
+|------------------------------------|-----------------------------------------------------------------------------------------------------------|
+| `cockpit:addPointOfInterest`       | `poi`: `id`, `name`, `latitude`, `longitude`, and optionally `description`, `heading`, `icon`, `color`    |
+| `cockpit:updatePointOfInterest`    | `poi`: `id` and the fields to change. `latitude` and `longitude` go together                              |
+| `cockpit:removePointOfInterest`    | `id`                                                                                                      |
+| `cockpit:setMapOverlay`            | `overlay`: `id`, `name`, `geojson` (a `FeatureCollection`), and optionally `live`                         |
+| `cockpit:appendMapOverlayFeatures` | `id`, `features`                                                                                          |
+| `cockpit:clearMapOverlay`          | `id`                                                                                                      |
+| `cockpit:setMapGeoTiff`            | `geoTiff`: `id`, `name`, `url`, and optionally `renderMode` (`grayscale`, `intensity` or `bathymetry`)    |
+| `cockpit:removeMapOverlay`         | `id`                                                                                                      |
+
+- `icon` is a [Material Design Icons](https://pictogrammers.com/library/mdi/) class, like `mdi-flag`, and `color` a hex code, like `#FF0000`.
+- Overlays are styled by their features' [simplestyle](https://github.com/mapbox/simplestyle-spec) properties, and saved on the computer running Cockpit unless `live` is `true`.
+- The GeoTIFF's server must allow Cockpit's origin through CORS.
+
+```js
+window.parent.postMessage({
+  type: 'cockpit:addPointOfInterest',
+  poi: { id: 'target-1', name: 'Target 1', latitude: -27.59, longitude: -48.55, icon: 'mdi-flag' },
+}, '*')
+```
+
+WebSocket connections can send these messages too, as JSON.
