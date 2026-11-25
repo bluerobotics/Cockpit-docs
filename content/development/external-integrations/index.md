@@ -35,6 +35,10 @@ The following functionalities can be added by configuring the `cockpit_extras.js
 - Integrating custom iframe widgets
 - Adding custom [Actions](@/usage/advanced/index.md#cockpit-actions-1)
 - Automatically suggesting joystick mappings
+- Offering a WebSocket connection
+
+Cockpit reads the file when it connects to the vehicle, from the path given in `extras.cockpit`, relative to the extension's address.
+If any part of the file is invalid, Cockpit ignores all of it and only logs an error to its console.
 
 Keys for the `cockpit_extras.json` file are typed in `lowerCamelCase`. We recommend to type id values in `kebab-case`.
 
@@ -47,36 +51,39 @@ Keys for the `cockpit_extras.json` file are typed in `lowerCamelCase`. We recomm
 
 ### Minimal configuration
 A minimal `cockpit_extras.json` file can be seen below. This file does not add any extra functionality yet.
+
 | Attribute                 | Type     | Required | Note                                                                                                          |
 |---------------------------|----------|----------|---------------------------------------------------------------------------------------------------------------|
-| `targetCockpitApiVersion` | `string` | yes      |                                                                                                               |
-| `targetSystem`            | `string` | yes      |                                                                                                               |
-| `widgets`                 | `array`  | yes      | An array containing [iframe widget configuration](#iframe-widget-configuration) objects                       |
-| `actions`                 | `array`  | yes      | An array containing  [action configuration](#cockpit-action-configuration)  objects                           |
+| `targetCockpitApiVersion` | `string` | yes      | Use `"1.0.0"`. Not checked yet                                                                                |
+| `targetSystem`            | `string` | yes      | Use `"Cockpit"`                                                                                               |
+| `widgets`                 | `array`  | no       | An array containing [iframe widget configuration](#iframe-widget-configuration) objects                       |
+| `actions`                 | `array`  | no       | An array containing  [action configuration](#cockpit-action-configuration)  objects                           |
 | `joystickSuggestions`     | `array`  | no       | An array containing  [joystick mapping suggestion group](#joystick-mapping-suggestion-configuration)  objects |
+| `webSockets`              | `array`  | no       | An array containing [WebSocket connection configuration](#websocket-connection-configuration) objects         |
+
 `cockpit_extras.json`
 ```json
 {
    "targetSystem":"Cockpit",
-   "targetCockpitApiVersion":"1.0.0",
-   "widgets": [],
-   "actions": [],
+   "targetCockpitApiVersion":"1.0.0"
 }
 ```
 
 ### iframe Widget configuration
 You can add iframe widgets to Cockpit based on your BlueOS Extension by adding a widget configuration.
 
-| Attribute                   | Type      | Required | Note                                         |
-|-----------------------------|-----------|----------|----------------------------------------------|
-| `name`                      | `string`  | yes      |                                              |
-| `iframeUrl`                 | `string`  | yes      |                                              |
-| `iconUrl`                   | `string`  | partial  | Either `iconUrl` or `iframeIcon` must be set |
-| `iframeIcon`                | `string`  | partial  | Either `iconUrl` or `iframeIcon` must be set |
-| `collapsibleContainerName`  | `string`  | no       |                                              |
-| `version`                   | `string`  | no       |                                              |
-| `startCollapsed`            | `boolean` | no       |                                              |
-| `useExtensionPathAsBaseUrl` | `boolean` | no       |                                              |
+| Attribute                   | Type      | Required | Note                                                                                                  |
+|-----------------------------|-----------|----------|-------------------------------------------------------------------------------------------------------|
+| `name`                      | `string`  | yes      | Shown in the edit mode widget list                                                                    |
+| `iframeUrl`                 | `string`  | yes      | A full URL, or a path when `useExtensionPathAsBaseUrl` is set                                         |
+| `iconUrl`                   | `string`  | partial  | Either `iconUrl` or `iframeIcon` must be set                                                          |
+| `iframeIcon`                | `string`  | partial  | Either `iconUrl` or `iframeIcon` must be set                                                          |
+| `collapsibleContainerName`  | `string`  | no       | Adds a collapsible title bar with this name                                                           |
+| `version`                   | `string`  | no       |                                                                                                       |
+| `startCollapsed`            | `boolean` | no       |                                                                                                       |
+| `useExtensionPathAsBaseUrl` | `boolean` | no       | Makes `iframeUrl` relative to the extension. Only works for extensions with `works_in_relative_paths` |
+| `contentZoom`               | `number`  | no       | Page zoom, from `0.25` to `3`. Defaults to `1`                                                        |
+| `scaleContentWithWidget`    | `boolean` | no       | Zooms the page with the widget's width. Defaults to `true`                                            |
 
 `cockpit_extras.json`
 ```json
@@ -129,11 +136,11 @@ type of action.
 }
 ```
 #### MAVLink Message Action configuration
-| Attribute       | Type     | Required | Note                                                                                      |
-|-----------------|----------|----------|-------------------------------------------------------------------------------------------|
-| `name`          | `string` | yes      |                                                                                           |
-| `messageType`   | `string` | yes      | [Allowed types](https://github.com/patrickelectric/mavlink-json)                          |
-| `messageConfig` | `any`    | yes      |                                                                                           |
+| Attribute       | Type     | Required | Note                                                            |
+|-----------------|----------|----------|-----------------------------------------------------------------|
+| `name`          | `string` | yes      |                                                                 |
+| `messageType`   | `string` | yes      | A MAVLink message name, e.g. `COMMAND_LONG` or `MANUAL_CONTROL` |
+| `messageConfig` | `string` | yes      | The message fields, as a JSON string                            |
 
 `cockpit_extras.json`
 ```json
@@ -146,8 +153,8 @@ type of action.
          "type": "mavlink-message",
          "config": {
             "name": "ActionName",
-            "messageType": "MAV_TYPE_CAMERA",
-            "messageConfig": null
+            "messageType": "COMMAND_LONG",
+            "messageConfig": "{\"target_system\":1,\"target_component\":1,\"command\":{\"type\":\"MAV_CMD_DO_SET_SERVO\"},\"confirmation\":0,\"param1\":9,\"param2\":1900,\"param3\":0,\"param4\":0,\"param5\":0,\"param6\":0,\"param7\":0}"
          },
          "version": "1.0.0"
       }
@@ -182,7 +189,7 @@ type of action.
                "Content-Type": "application/json"
             },
             "urlParams": {},
-            "body": "{\"speed\":10}",
+            "body": "{\"speed\":10}"
          },
          "version": "1.0.0"
       }
@@ -287,13 +294,34 @@ Each joystick profile tracks its own set of applied and ignored suggestions inde
                "actionId": "my-custom-action-id",
                "button": 0,
                "modifierKey": "regular",
-               "description": "A clear description of your action",
+               "description": "A clear description of your action"
             }
          ],
          "targetVehicleTypes": [
             ...
          ],
          "version": ""
+      }
+   ]
+}
+```
+
+### WebSocket connection configuration
+Extensions can offer a WebSocket connection that sends data to Cockpit. Cockpit asks the user once whether to connect to it.
+
+| Attribute | Type     | Required | Note                                                 |
+|-----------|----------|----------|------------------------------------------------------|
+| `name`    | `string` | yes      |                                                      |
+| `path`    | `string` | yes      | Starts with `/`, relative to the extension's address |
+
+`cockpit_extras.json`
+```json
+{
+   ...
+   "webSockets": [
+      {
+         "name": "Sonar readings",
+         "path": "/ws/readings"
       }
    ]
 }
